@@ -1,4 +1,4 @@
-
+// создать файлики по имени папок
 const testFolder = '.';
 const fs = require('fs');
 fs.readdir(testFolder, (err, files) => {
@@ -8,8 +8,15 @@ fs.readdir(testFolder, (err, files) => {
   });
 });
 
+// создать пустое тело
 fs.readdir(testFolder, (err, files) => {
   files.forEach(file => {
 	fs.appendFileSync(file+'\\'+file+'.js', `export default function ${file}() {}`)
   });
 });
+
+// создать одну папку и в ней все это
+let nd='Page404'
+fs.mkdirSync(nd)
+fs.closeSync(fs.openSync(nd+'\\'+nd+'.css', 'w'));
+fs.appendFileSync(nd+'\\'+nd+'.js', `export default function ${nd}() {}`)
