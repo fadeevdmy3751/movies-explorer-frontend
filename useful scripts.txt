@@ -1,0 +1,15 @@
+
+const testFolder = '.';
+const fs = require('fs');
+fs.readdir(testFolder, (err, files) => {
+  files.forEach(file => {
+    fs.closeSync(fs.openSync(file+'\\'+file+'.css', 'w'));
+    fs.closeSync(fs.openSync(file+'\\'+file+'.js', 'w'));
+  });
+});
+
+fs.readdir(testFolder, (err, files) => {
+  files.forEach(file => {
+	fs.appendFileSync(file+'\\'+file+'.js', `export default function ${file}() {}`)
+  });
+});
