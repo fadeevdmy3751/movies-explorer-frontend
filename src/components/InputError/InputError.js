@@ -1,1 +1,2 @@
-# ошибки ввода
+// ошибки ввода
+export default function InputError() {}
