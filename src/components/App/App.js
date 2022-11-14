@@ -19,7 +19,6 @@ export default function App() {
 
     const [isBurgerOpened, setIsBurgerOpened] = useState(false);
     // const [loggedIn, setLoggedIn] = useState(false);
-    const loggedIn = true
 
     function onClickBurger() {
         setIsBurgerOpened(!isBurgerOpened);
