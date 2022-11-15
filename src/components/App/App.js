@@ -1,6 +1,8 @@
+import './App.css';
+
 import {Route, Switch} from "react-router-dom";
-import Main from "../Main/Main";
 import {useState} from "react";
+import Main from "../Main/Main";
 import Header from "../Header/Header";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
@@ -18,6 +20,7 @@ const footerPaths = ['/movies', '/saved-movies', '/'];
 export default function App() {
 
     const [isBurgerOpened, setIsBurgerOpened] = useState(false);
+
     // const [loggedIn, setLoggedIn] = useState(false);
 
     function onClickBurger() {
