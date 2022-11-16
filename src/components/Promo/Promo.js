@@ -8,17 +8,17 @@ export default function Promo() {
                     <h1 className="promo__title">
                         Учебный проект студента факультета Веб&#8209;разработки.
                     </h1>
-                    <p className="promo__description">
-                        Листайте ниже, чтобы узнать больше про этот проект и его создателя.
-                    </p>
-                    <a
-                        href="https://goo.su/P65u"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="promo__learn-more-link"
-                    >
-                        Узнать больше
-                    </a>
+                    <ul className="promo__link-list">
+                        <li>
+                            <a className="promo__link" href="#about-project">О проекте</a>
+                        </li>
+                        <li>
+                            <a className="promo__link" href="#techs">Технологии</a>
+                        </li>
+                        <li>
+                            <a className="promo__link" href="#aboutMe">Студент</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
