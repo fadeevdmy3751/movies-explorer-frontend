@@ -4,19 +4,28 @@
     position: relative;
 }
 
+.navigation_state_closed {
+    width: 100%;
+    padding-left: 44px;
+
+}
+
 .navigation__list {
     padding: 0;
     margin: 0;
+    width: 100%;
     list-style-type: none;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 30px;
     transition: all .6s ease;
     z-index: 3;
 }
 
-.navigation__list_logged {
-    gap: 20px;
+.navigation__list_left {
+    display: flex;
+    gap: 16px;
 }
 
 .navigation__link {
@@ -27,6 +36,7 @@
     color: var(--font-color-primary);
     display: flex;
     align-items: center;
+
     transition: all .3s ease;
 }
 
@@ -55,31 +65,8 @@
     border-radius: 3px;
 }
 
-.navigation__link_type_account {
-    position: relative;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.14;
-    margin-left: 24px;
-    padding-left: 15px;
-    padding-right: 34px;
-    min-height: 30px;
-    box-shadow: 0 3px 14px rgba(0, 0, 0, .08);
-    border-radius: 40px;
-}
-
-.navigation__link_type_account::after {
-    position: absolute;
-    content: '';
-    top: 0;
-    right: 0;
-    width: 30px;
-    height: 100%;
-    border-radius: 50px;
-    background-color: #313131;
-    background-image: url('../../images/profile.svg');
-    background-repeat: no-repeat;
-    background-position: center;
+.navigation__account-img {
+    padding-left: 17px;
 }
 
 @media screen and (max-width: 800px) {
@@ -94,26 +81,22 @@
         position: absolute;
         top: 0;
         flex-direction: column;
-        height: 100vh;
+        height: calc(100vh - 159px);
         width: 67%;
         background-color: #202020;
     }
 
-    .navigation__link_type_account {
-        margin: 0;
-    }
-
-    .navigation__item:last-child {
-        margin: auto 0 90px 0;
-    }
-
-    .navigation__item:first-child {
-        margin-top: 159px;
+    .navigation__list_left{
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
     }
 
     .navigation__list_state_opened {
         right: 0;
         visibility: visible;
+        padding-top: 159px;
+        justify-content: flex-start;
     }
 
     .navigation__list_state_closed {
@@ -136,11 +119,19 @@
     .navigation_state_closed {
         position: static;
     }
+
+    .navigation__item_type_account {
+        margin: auto 0 92px 0;
+    }
 }
 
 @media screen and (max-width: 400px) {
     .navigation__list {
         gap: 14px;
+    }
+
+    .navigation__list_state_opened {
+        padding-top: 145px;
     }
 
     .navigation__link.navigation__link_landing {
@@ -155,13 +146,6 @@
     .navigation__list_logged {
         gap: 24px;
         width: 100%;
-    }
-
-    .navigation__item:first-child {
-        margin-top: 144px;
-    }
-
-    .navigation__item:last-child {
-        margin-bottom: 46px;
+        height: calc(100vh - 145px);
     }
 }

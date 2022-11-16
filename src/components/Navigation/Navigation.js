@@ -1,6 +1,7 @@
 import './Navigation.css';
 import {Link, NavLink} from "react-router-dom";
 import Hamburger from "../Hamburger/Hamburger";
+import profile_pic from "../../images/profile.svg"
 
 export default function Navigation({loggedIn, isBurgerOpened, onClickBurger}) {
     const activeLink = `navigation__link_active_${isBurgerOpened ? 'mobile' : 'desktop'}`;
@@ -40,20 +41,23 @@ export default function Navigation({loggedIn, isBurgerOpened, onClickBurger}) {
                                 </NavLink>
                             </li>
                         )}
-                        <li className="navigation__item">
-                            <NavLink to='/movies' className='navigation__link' activeClassName={activeLink}>
-                                Фильмы
-                            </NavLink>
-                        </li>
-                        <li className="navigation__item">
-                            <NavLink to='/saved-movies' className='navigation__link' activeClassName={activeLink}>
-                                Сохранённые фильмы
-                            </NavLink>
-                        </li>
-                        <li className="navigation__item">
-                            <NavLink to='/profile' className='navigation__link navigation__link_type_account'
+                        <div className='navigation__list_left'>
+                            <li className='navigation__item'>
+                                <NavLink to='/movies' className='navigation__link' activeClassName={activeLink}>
+                                    Фильмы
+                                </NavLink>
+                            </li>
+                            <li className="navigation__item">
+                                <NavLink to='/saved-movies' className='navigation__link' activeClassName={activeLink}>
+                                    Сохранённые фильмы
+                                </NavLink>
+                            </li>
+                        </div>
+                        <li className="navigation__item navigation__item_type_account">
+                            <NavLink to='/profile' className='navigation__link'
                                      activeClassName={activeLink}>
                                 Аккаунт
+                                <img className='navigation__link navigation__account-img' alt='профиль' src={profile_pic}/>
                             </NavLink>
                         </li>
                     </ul>
