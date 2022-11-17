@@ -20,7 +20,7 @@
     margin: 0;
     font-weight: 400;
     font-size: 22px;
-    line-height: 1.23;
+    line-height: 27px;
     letter-spacing: -0.04em;
     border-bottom: 1px solid var(--stroke-color-lite);
     padding-bottom: 22px;
@@ -32,14 +32,14 @@
     margin: 90px 0 0;
     font-weight: 400;
     font-size: 50px;
-    line-height: 1.16;
+    line-height: 58px;
     letter-spacing: -0.04em;
 }
 
 .techs__about {
     font-weight: 400;
     font-size: 14px;
-    line-height: 1.43;
+    line-height: 20px;
     text-align: center;
     letter-spacing: -0.04em;
     max-width: 460px;
@@ -65,11 +65,11 @@
 
 .techs__stack-name {
     margin: 0;
-    padding: 21px 0;
+    padding: 31px 0 12px;
     text-align: center;
     font-weight: 400;
     font-size: 14px;
-    line-height: 1.21;
+    line-height: 17px;
     letter-spacing: -0.04em;
 }
 

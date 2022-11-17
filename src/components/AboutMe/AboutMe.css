@@ -87,7 +87,7 @@
 
 .about-me__avatar {
     width: 270px;
-    object-fit: cover;
+    object-fit: contain;    /* cover? */
     border-radius: 10px;
 }
 
