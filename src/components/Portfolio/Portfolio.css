@@ -13,7 +13,7 @@
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
-    gap: 50px;
+    gap: 64px;
     flex-direction: column;
 }
 
@@ -21,7 +21,7 @@
     margin: 0;
     font-weight: 400;
     font-size: 18px;
-    line-height: 1.11;
+    line-height: 20px;
     color: var(--font-color-secondary);
 }
 
@@ -29,14 +29,14 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 37px;
     margin: 0;
     padding: 0;
 }
 
 .portfolio__projects-item {
     display: flex;
-    padding-bottom: 19px;
+    padding-bottom: 2px;
     border-bottom: 1px solid var(--stroke-color-dark);
     box-sizing: border-box;
     transition: all .3s ease;
@@ -55,7 +55,7 @@
     text-decoration: none;
     font-weight: 400;
     font-size: 30px;
-    line-height: 1.67;
+    line-height: 50px;
     letter-spacing: -0.04em;
     color: var(--font-color-primary);
     width: 100%;

@@ -9,7 +9,7 @@
 .about-me__container {
     max-width: 1280px;
     width: 100%;
-    padding: 110px 70px 100px;
+    padding: 121px 70px 100px;
     display: flex;
     box-sizing: border-box;
     align-items: center;
@@ -19,7 +19,7 @@
 .about-me__title {
     margin: 0;
     font-weight: 400;
-    font-size: 22px;
+    font-size: 12px;
     line-height: 1.23;
     letter-spacing: -0.04em;
     border-bottom: 1px solid var(--stroke-color-lite);
@@ -39,6 +39,7 @@
 .about-me__bio {
     display: flex;
     flex-direction: column;
+    margin-top: 12px;
     max-width: 600px;
 }
 
@@ -65,8 +66,10 @@
 }
 
 .about-me__socials {
-    margin: 100px 0 0;
+    flex-grow: 1;
+    /*margin: 100px 0 0;*/
     display: flex;
+    align-items: flex-end;
     gap: 20px;
     list-style: none;
     padding: 0;
@@ -87,7 +90,7 @@
 
 .about-me__avatar {
     width: 270px;
-    object-fit: contain;    /* cover? */
+    object-fit: contain; /* cover? */
     border-radius: 10px;
 }
 
