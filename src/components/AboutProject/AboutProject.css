@@ -144,15 +144,15 @@
 
     .about-project__title {
         font-size: 18px;
-        line-height: 1.22;
+        line-height: 22px;
         letter-spacing: -0.04em;
-        padding-bottom: 28px;
+        padding-bottom: 24px;
     }
 
     .about-project__definition-list {
         flex-direction: column;
-        padding: 60px 0 48px;
-        gap: 45px;
+        padding: 65px 0 54px;
+        gap: 57px;
     }
 
     .about-project__definition-item {

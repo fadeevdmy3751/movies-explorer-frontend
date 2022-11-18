@@ -33,6 +33,8 @@
     font-size: 50px;
     line-height: 1.16;
     margin: 0;
+    letter-spacing: -0.04em;
+
 }
 
 .promo__link-list {

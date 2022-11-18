@@ -115,23 +115,25 @@
     .techs__title {
         font-size: 18px;
         line-height: 1.22;
-        padding-bottom: 27px;
+        padding-bottom: 20px;
+        border-bottom-color: black;
+
     }
 
     .techs__quantity {
-        margin-top: 60px;
+        margin-top: 68px;
         font-size: 30px;
-        line-height: 1.2;
+        line-height: 36px;
     }
 
     .techs__about {
         font-size: 11px;
-        line-height: 1.45;
-        margin-top: 25px;
+        line-height: 16px;
+        margin-top: 24px;
     }
 
     .techs__stack {
-        margin-top: 49px;
+        margin-top: 41px;
         max-width: 180px;
     }
 }

@@ -67,7 +67,7 @@
 
 .about-me__socials {
     flex-grow: 1;
-    /*margin: 100px 0 0;*/
+    margin: 0;
     display: flex;
     align-items: flex-end;
     gap: 20px;
@@ -130,45 +130,43 @@
     }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 565px) {
     .about-me__bio-container {
         display: flex;
         flex-direction: column-reverse;
         align-items: center;
         margin-top: 60px;
-        gap: 40px;
+        gap: 54px;
     }
 
     .about-me__avatar {
         width: 292px;
     }
-}
 
-@media screen and (max-width: 400px) {
     .about-me__container {
-        padding: 71px 14px;
+        padding: 82px 14px 54px;
     }
 
     .about-me__title {
         font-size: 18px;
-        line-height: 1.22;
+        line-height: 22px;
         padding-bottom: 28px;
     }
 
     .about-me__name {
         font-size: 30px;
-        line-height: 1.2;
+        line-height: 36px;
     }
 
     .about-me__age {
         font-size: 11px;
-        line-height: 1.45;
+        line-height: 16px;
         margin-top: 20px;
     }
 
     .about-me__text {
         font-size: 11px;
-        line-height: 1.45;
+        line-height: 16px;
     }
 
     .about-me__socials {
