@@ -68,16 +68,12 @@
 }
 
 .portfolio__link::after {
-    content: '';
-    width: 24px;
-    height: 18px;
-    background-image: url('../../images/arrow.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
+    content: '↗';
+    font-size: 30px;
+    line-height: 60px;
     position: absolute;
     right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+
 }
 
 @media screen and (max-width: 800px) {
@@ -91,25 +87,12 @@
 
     .portfolio__link {
         font-size: 28px;
-        line-height: 1.79;
     }
 
     .portfolio__link::after {
-        width: 23px;
-        height: 17px;
-    }
-}
-
-@media screen and (max-width: 800px) {
-    .portfolio__link {
-        font-size: 18px;
-        line-height: 1.56;
+        font-size: 28px;
     }
 
-    .portfolio__link::after {
-        width: 21px;
-        height: 11px;
-    }
 }
 
 @media screen and (max-width: 400px) {

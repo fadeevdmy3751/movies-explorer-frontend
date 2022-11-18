@@ -19,8 +19,8 @@
 .about-me__title {
     margin: 0;
     font-weight: 400;
-    font-size: 12px;
-    line-height: 1.23;
+    font-size: 22px;
+    line-height: 27px;
     letter-spacing: -0.04em;
     border-bottom: 1px solid var(--stroke-color-lite);
     padding-bottom: 22px;
