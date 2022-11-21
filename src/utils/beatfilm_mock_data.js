@@ -1,4 +1,4 @@
-export default [
+const films = [
     {
         "country": "США",
         "director": "Стивен Кайак ",
@@ -1300,3 +1300,5 @@ export default [
         "nameEN": "Vladivostok Vacation and the Great Russian Break"
     }
 ]
+
+module.exports = films;

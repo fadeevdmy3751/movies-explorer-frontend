@@ -1,8 +1,11 @@
 // node --experimental-fetch
 
-const fs = require('fs')
-let films = await fetch('https://api.nomoreparties.co/beatfilm-movies')
-let fj = await films.json()
+//
+// const fs = require('fs')
+// let films = await fetch('https://api.nomoreparties.co/beatfilm-movies')
+// let fj = await films.json()
+
+import {SHORTS_DUR} from "./constants";
 
 function simplifyMovie(movie) {
     const baseurl = 'https://api.nomoreparties.co/'
@@ -21,6 +24,22 @@ function simplifyMovie(movie) {
     return simped
 }
 
-simped = fj.map(simplifyMovie)
-fs.writeFileSync('.\\beatfilm_mock_data.js', 'export default ' + JSON.stringify(simped, null, 2), 'utf-8');
+// simped = fj.map(simplifyMovie)
+// fs.writeFileSync('.\\beatfilm_mock_data.js', 'export default ' + JSON.stringify(simped, null, 2), 'utf-8');
 
+function filterShorts(movies) {
+    return movies.filter(movie => movie.duration < SHORTS_DUR);
+}
+
+// преобразование длительности
+function niceDuration(duration) {
+    const hours = Math.trunc(duration / 60);
+    const minutes = duration % 60;
+    if(hours === 0) {
+        return `${minutes}м`;
+    } else {
+        return `${hours}ч ${minutes}м`;
+    }
+}
+
+export {filterShorts, niceDuration}
