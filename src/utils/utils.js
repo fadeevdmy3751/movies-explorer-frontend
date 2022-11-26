@@ -38,7 +38,7 @@ function niceDuration(duration) {
     if(hours === 0) {
         return `${minutes}м`;
     } else {
-        return `${hours}ч ${minutes}м`;
+        return `${hours}ч${minutes}м`;
     }
 }
 

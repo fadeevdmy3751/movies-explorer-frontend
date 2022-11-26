@@ -18,7 +18,7 @@ export default function MoviesCard({movie}) {
   return (
     <li className="movies-card">
       <article className="movies-card__item">
-        <a target="_blank" rel="noreferrer" href={movie.trailerLink}>
+        <a target="_blank" rel="noreferrer" className="movies-card__link" href={movie.trailerLink}>
           <img
             src={movie.image}
             alt={movie.nameRU}
@@ -27,7 +27,7 @@ export default function MoviesCard({movie}) {
           />
         </a>
         <div className="movies-card__description">
-          <h2 className="movies-card__title">{movie.nameRU}</h2>
+          <p className="movies-card__title">{movie.nameRU}</p>
           {location.pathname === '/movies' && (
             <button
               type="button"
