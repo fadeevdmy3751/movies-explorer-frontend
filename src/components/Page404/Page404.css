@@ -24,7 +24,7 @@
 .not-found__error-name {
     font-weight: 400;
     font-size: 16px;
-    line-height: 1.19;
+    line-height: 19px;
 }
 
 .not-found__button {
@@ -33,7 +33,7 @@
     cursor: pointer;
     font-weight: 400;
     font-size: 14px;
-    line-height: 1.21;
+    line-height: 17px;
     color: var(--blue-accent-color);
     padding: 0;
     position: absolute;
@@ -64,12 +64,12 @@
 
     .not-found__error-name {
         font-size: 12px;
-        line-height: 1.25;
+        line-height: 15px;
     }
 
     .not-found__button {
         font-size: 12px;
-        line-height: 1.25;
+        line-height: 15px;
         bottom: 30px;
     }
 }

@@ -22,7 +22,7 @@
     color: var(--font-color-primary);
     font-weight: 500;
     font-size: 28px;
-    line-height: 1.21;
+    line-height: 34px;
     box-sizing: border-box;
     padding: 14px 80px 14px 80px;
 }
@@ -34,7 +34,7 @@
 .search__error {
     font-weight: 400;
     font-size: 11px;
-    line-height: 1.2;
+    line-height: 13px;
     color: var(--red-accent-color);
     position: absolute;
     top: 70px;
@@ -95,7 +95,7 @@
     .search__input {
         text-align: left;
         font-size: 18px;
-        line-height: 1.22;
+        line-height: 22px;
         padding-left: 0;
     }
 

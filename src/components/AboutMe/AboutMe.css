@@ -46,7 +46,7 @@
 .about-me__name {
     margin: 0;
     font-size: 50px;
-    line-height: 1.16;
+    line-height: 58px;
     font-weight: 400;
     letter-spacing: -0.04em;
 }
@@ -54,7 +54,7 @@
 .about-me__age {
     font-weight: 500;
     font-size: 18px;
-    line-height: 1.11;
+    line-height: 20px;
     margin: 18px 0 0;
 }
 
@@ -62,7 +62,7 @@
     margin: 26px 0 0;
     font-weight: 400;
     font-size: 14px;
-    line-height: 1.57;
+    line-height: 22px;
 }
 
 .about-me__socials {
@@ -78,7 +78,7 @@
 .about-me__social-link {
     font-weight: 500;
     font-size: 14px;
-    line-height: 1.21;
+    line-height: 17px;
     color: var(--font-color-primary);
     text-decoration: none;
     transition: all .3s ease;
@@ -105,12 +105,12 @@
 
     .about-me__name {
         font-size: 40px;
-        line-height: 1;
+        line-height: 40px;
     }
 
     .about-me__age {
         font-size: 12px;
-        line-height: 1.5;
+        line-height: 18px;
         margin-top: 16px;
     }
 
@@ -118,7 +118,7 @@
         margin-top: 20px;
         font-weight: 400;
         font-size: 12px;
-        line-height: 1.5;
+        line-height: 18px;
     }
 
     .about-me__socials {

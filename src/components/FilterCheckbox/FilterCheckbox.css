@@ -40,7 +40,7 @@
     position: absolute;
     font-weight: 400;
     font-size: 14px;
-    line-height: 1.29;
+    line-height: 18px;
     right: 0;
 }
 
@@ -72,6 +72,6 @@
 
     .filter__text {
         font-size: 11px;
-        line-height: 1.64;
+        line-height: 18px;
     }
 }

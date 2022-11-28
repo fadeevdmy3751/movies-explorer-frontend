@@ -85,7 +85,7 @@
     box-sizing: border-box;
     font-weight: 400;
     font-size: 14px;
-    line-height: 1.21;
+    line-height: 17px;
     color: var(--black-text-on-green);
     background-color: var(--green-accent-color);
 }
@@ -97,7 +97,7 @@
     box-sizing: border-box;
     font-weight: 400;
     font-size: 14px;
-    line-height: 1.21;
+    line-height: 17px;
     background-color: var(--button-color);
 }
 
@@ -115,7 +115,7 @@
 
     .about-project__definition-description {
         font-size: 12px;
-        line-height: 1.5;
+        line-height: 18px;
         margin-top: 22px;
     }
 
@@ -161,31 +161,31 @@
 
     .about-project__definition-title {
         font-size: 18px;
-        line-height: 1.22;
+        line-height: 22px;
     }
 
     .about-project__definition-description {
         font-size: 11px;
-        line-height: 1.45;
+        line-height: 16px;
         margin-top: 16px;
     }
 
     .about-project__backend-duration {
         font-size: 11px;
-        line-height: 1.18;
+        line-height: 13px;
         padding: 11px 0;
     }
 
     .about-project__frontend-duration {
         font-size: 11px;
-        line-height: 1.18;
+        line-height: 13px;
         padding: 11px 0;
     }
 
     .about-project__scheme-title {
         font-weight: 400;
         font-size: 11px;
-        line-height: 1.18;
+        line-height: 13px;
     }
 
     .about-project__backend {

@@ -40,7 +40,7 @@
     margin: 0;
     font-weight: 400;
     font-size: 13px;
-    line-height: 1.23;
+    line-height: 16px;
 }
 
 .footer__links-list {
@@ -78,7 +78,7 @@
 
     .footer__title {
         font-size: 12px;
-        line-height: 1.25;
+        line-height: 15px;
         padding-bottom: 21px;
     }
 
@@ -90,7 +90,7 @@
 
     .footer__copyright {
         font-size: 12px;
-        line-height: 1.25;
+        line-height: 15px;
         color: var(--font-color-secondary);
     }
 
@@ -102,6 +102,6 @@
 
     .footer__link {
         font-size: 12px;
-        line-height: 1.25;
+        line-height: 15px;
     }
 }

@@ -31,7 +31,7 @@
 .navigation__link {
     font-weight: 400;
     font-size: 14px;
-    line-height: 1.29;
+    line-height: 16px;
     text-decoration: none;
     color: var(--font-color-primary);
     display: flex;
@@ -54,7 +54,7 @@
 
 .navigation__link.navigation__link_landing {
     font-size: 12px;
-    line-height: 1.33;
+    line-height: 16px;
     font-weight: 500;
 }
 
@@ -73,7 +73,7 @@
     .navigation__link {
         font-weight: 500;
         font-size: 18px;
-        line-height: 1.22;
+        line-height: 22px;
     }
 
     .navigation__list_logged {
@@ -86,7 +86,7 @@
         background-color: #202020;
     }
 
-    .navigation__list_left{
+    .navigation__list_left {
         flex-direction: column;
         align-items: center;
         gap: 28px;
@@ -136,7 +136,7 @@
 
     .navigation__link.navigation__link_landing {
         font-size: 10px;
-        line-height: 1.6;
+        line-height: 16px;
     }
 
     .navigation__link_signin {

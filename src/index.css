@@ -15,9 +15,7 @@
     --red-accent-color: #EE3465; /* var(--red-accent-color) */
     --black-text-on-green: black; /* var(--black-text-on-green) */
     --stroke-color-lite: #DADADA; /* var(--stroke-color-lite) */
-    /* C4C4C4 - не нужны */
     --blocks-background: #272727; /* var(--blocks-background) */
     --white-stripes: #E6E6E6; /* var(--white_stripes) */
 
-    /*TODO     line-height везде!!! */
 }
