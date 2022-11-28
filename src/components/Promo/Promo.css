@@ -93,7 +93,7 @@
 
 @media screen and (max-width: 400px) {
     .promo__container {
-        margin: 0 14px;
+        margin: 14px 0 14px;
         padding: 17px 0;
         width: calc(100% - 28px);
         min-height: 586px;
@@ -113,6 +113,7 @@
         height: 26px;
         font-size: 10px;
         padding-top: 9px;
+        border-radius: 6px;
     }
 
 }

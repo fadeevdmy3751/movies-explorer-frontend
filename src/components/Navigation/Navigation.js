@@ -3,7 +3,7 @@ import {Link, NavLink} from "react-router-dom";
 import Hamburger from "../Hamburger/Hamburger";
 import profile_pic from "../../images/profile.svg"
 
-export default function Navigation({loggedIn, isBurgerOpened, onClickBurger}) {
+export default function Navigation({loggedIn, isBurgerOpened, onClickBurger, closeBurger}) {
     const activeLink = `navigation__link_active_${isBurgerOpened ? 'mobile' : 'desktop'}`;
 
     function handleClickOverlay(e) {
@@ -36,28 +36,34 @@ export default function Navigation({loggedIn, isBurgerOpened, onClickBurger}) {
                         onClick={handleClickOverlay}>
                         {isBurgerOpened && (
                             <li className="navigation__item">
-                                <NavLink exact to='/' className='navigation__link' activeClassName={activeLink}>
+                                <NavLink exact to='/' className='navigation__link'
+                                         activeClassName={activeLink}
+                                         onClick={closeBurger}>
                                     Главная
                                 </NavLink>
                             </li>
                         )}
                         <div className='navigation__list_left'>
                             <li className='navigation__item'>
-                                <NavLink to='/movies' className='navigation__link' activeClassName={activeLink}>
+                                <NavLink to='/movies' className='navigation__link' activeClassName={activeLink}
+                                         onClick={closeBurger}>
                                     Фильмы
                                 </NavLink>
                             </li>
                             <li className="navigation__item">
-                                <NavLink to='/saved-movies' className='navigation__link' activeClassName={activeLink}>
+                                <NavLink to='/saved-movies' className='navigation__link' activeClassName={activeLink}
+                                         onClick={closeBurger}>
                                     Сохранённые фильмы
                                 </NavLink>
                             </li>
                         </div>
                         <li className="navigation__item navigation__item_type_account">
                             <NavLink to='/profile' className='navigation__link'
-                                     activeClassName={activeLink}>
+                                     activeClassName={activeLink}
+                                     onClick={closeBurger}>
                                 Аккаунт
-                                <img className='navigation__link navigation__account-img' alt='профиль' src={profile_pic}/>
+                                <img className='navigation__link navigation__account-img' alt='профиль'
+                                     src={profile_pic}/>
                             </NavLink>
                         </li>
                     </ul>

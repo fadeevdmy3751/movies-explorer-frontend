@@ -3,7 +3,7 @@ import logo from '../../images/logo.svg';
 import './Header.css';
 import Navigation from "../Navigation/Navigation";
 
-export default function Header({loggedIn, onClickBurger, isBurgerOpened}) {
+export default function Header({loggedIn, onClickBurger, isBurgerOpened, closeBurger}) {
     return (
         <header className='header'>
             <div className="header__container">
@@ -14,6 +14,7 @@ export default function Header({loggedIn, onClickBurger, isBurgerOpened}) {
                     loggedIn={loggedIn}
                     onClickBurger={onClickBurger}
                     isBurgerOpened={isBurgerOpened}
+                    closeBurger={closeBurger}
                 />
             </div>
         </header>

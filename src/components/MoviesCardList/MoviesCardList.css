@@ -74,6 +74,7 @@
     }
 
     .movies-card-list__show-more {
+        width: 240px;
         margin-top: 76px;
     }
 }

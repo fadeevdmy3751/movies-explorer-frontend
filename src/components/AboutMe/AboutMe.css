@@ -133,8 +133,8 @@
 @media screen and (max-width: 565px) {
     .about-me__bio-container {
         display: flex;
+        align-items: flex-start;
         flex-direction: column-reverse;
-        align-items: center;
         margin-top: 60px;
         gap: 54px;
     }

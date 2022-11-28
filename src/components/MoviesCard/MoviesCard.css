@@ -126,7 +126,7 @@
     }
 
     .movies-card__poster {
-        /*max-height: 168px;*/
+        max-height: 168px;
     }
 
     .movies-card__description {

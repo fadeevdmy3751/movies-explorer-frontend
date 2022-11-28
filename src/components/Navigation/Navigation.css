@@ -72,8 +72,8 @@
 @media screen and (max-width: 800px) {
     .navigation__link {
         font-weight: 500;
-        font-size: 18px;
-        line-height: 22px;
+        font-size: 14px;
+        line-height: 16px;
     }
 
     .navigation__list_logged {
@@ -147,5 +147,9 @@
         gap: 24px;
         width: 100%;
         height: calc(100vh - 145px);
+    }
+
+    .navigation__item_type_account {
+        margin: auto 0 48px 0;
     }
 }

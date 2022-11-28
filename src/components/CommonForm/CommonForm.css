@@ -119,7 +119,8 @@
     font-size: 14px;
     line-height: 17px;
     width: 100%;
-    padding: 14px 0;
+    padding-top: 16px;
+    padding-bottom: 12px;
     box-sizing: border-box;
     transition: all .3s ease;
     cursor: pointer;
@@ -145,6 +146,17 @@
     text-align: center;
 }
 
+@media screen and (max-width: 800px) {
+    .commonForm__form {
+        min-height: calc(100vh - 250px);
+    }
+
+    .commonForm__button {
+        padding-top: 17px;
+        padding-bottom: 11px;
+    }
+}
+
 @media screen and (max-width: 500px) {
     .commonForm {
         padding-top: 56px;
@@ -160,12 +172,14 @@
 
     .commonForm__labels-container {
         margin-top: 30px;
-        gap: 40px;
+        gap: 30px;
     }
 
     .commonForm__button {
         font-size: 12px;
         line-height: 16px;
+        padding-top: 19px;
+        padding-bottom: 11px;
     }
 
     .commonForm__support {

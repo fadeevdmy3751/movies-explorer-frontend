@@ -35,6 +35,10 @@ export default function App() {
         setIsBurgerOpened(!isBurgerOpened);
     }
 
+    function closeBurger() {
+        setIsBurgerOpened(false)
+    }
+
     function handleLogin({email}) {
         setLoggedIn(true)
         setCurrentUser({name: email.split('@')[0], email})
@@ -56,6 +60,7 @@ export default function App() {
                         loggedIn={loggedIn}
                         onClickBurger={onClickBurger}
                         isBurgerOpened={isBurgerOpened}
+                        closeBurger={closeBurger}
                     />
                 </Route>
                 <Switch>
