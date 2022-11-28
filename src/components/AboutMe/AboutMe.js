@@ -1,5 +1,5 @@
 import './AboutMe.css';
-import userpic from '../../images/userpic.png';
+import userpic from '../../images/userpic.jpg';
 
 export default function AboutMe() {
     return (
@@ -11,10 +11,10 @@ export default function AboutMe() {
                         <h3 className="about-me__name">Дима</h3>
                         <p className="about-me__age">Фронтенд-разработчик, 25 лет</p>
                         <p className="about-me__text">
-                            Я люблю свою работу
-                            я прийду сюда в субботу
-                            от работы дохнут кони
-                            ну а я пока работаю в конторе за гроши но зато бля для души
+                            Я менеджер самого среднего звена,<br/>
+                            У меня есть дети, у меня есть жена,<br/>
+                            Я работаю в компании «Связь-интерком»<br/>
+                            И каждый понедельник я - огурцом!
                         </p>
                         <ul className="about-me__socials">
                             <li>

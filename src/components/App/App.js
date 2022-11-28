@@ -1,7 +1,7 @@
 import './App.css';
 
-import {Route, Switch} from "react-router-dom";
-import {useState} from "react";
+import {Route, Switch, useHistory} from "react-router-dom";
+import {useEffect, useState} from "react";
 import Main from "../Main/Main";
 import Header from "../Header/Header";
 import Register from "../Register/Register";
@@ -11,6 +11,7 @@ import Profile from "../Profile/Profile";
 import Page404 from "../Page404/Page404";
 import Footer from "../Footer/Footer";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import Preloader from "../Preloader/Preloader";
 
 
 const headerPaths = ['/movies', '/saved-movies', '/profile', '/'];
@@ -21,6 +22,14 @@ export default function App() {
     const [currentUser, setCurrentUser] = useState({});
     const [isBurgerOpened, setIsBurgerOpened] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
+    const [showLoader, setshowLoader] = useState(true)
+    const history = useHistory()
+
+    useEffect(() => {
+        setTimeout(() => {
+            setshowLoader(false)
+        }, 3000)
+    })
 
     function onClickBurger() {
         setIsBurgerOpened(!isBurgerOpened);
@@ -29,17 +38,14 @@ export default function App() {
     function handleLogin({email}) {
         setLoggedIn(true)
         setCurrentUser({name: email.split('@')[0], email})
+        history.push('/')
     } // заглушка
 
     function handleSignOut() {
         setLoggedIn(false)
         setCurrentUser({name: "", email: ""})
+        history.push('/signin')
     }
-
-
-    function switchLogin() {
-        setLoggedIn(!loggedIn)
-    } // todo remove, just for test
 
     return (
         <div className="app">
@@ -50,11 +56,11 @@ export default function App() {
                         loggedIn={loggedIn}
                         onClickBurger={onClickBurger}
                         isBurgerOpened={isBurgerOpened}
-                        switchLogin={switchLogin}
                     />
                 </Route>
                 <Switch>
                     <Route exact path='/'>
+                        {showLoader && <Preloader/>}
                         <Main/>
                     </Route>
                     <Route exact path='/signup'>

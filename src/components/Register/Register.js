@@ -1,23 +1,24 @@
-import './Register.css';
+// import './Register.css';
+import '../CommonForm/CommonForm.css';
 import {Link} from "react-router-dom";
 import logo from '../../images/logo.svg';
 
 export default function Register() {
     return (
-        <main className="register">
-            <form className="register__form" name="register"
+        <main className="commonForm">
+            <form className="commonForm__form" name="register"
                   noValidate
             >
-                <Link to="/" className="register__link">
-                    <img src={logo} alt="Логотип" className="register__logo"/>
+                <Link to="/" className="commonForm__link">
+                    <img src={logo} alt="Логотип" className="commonForm__logo"/>
                 </Link>
-                <h1 className="register__title">Добро пожаловать!</h1>
-                <div className="register__labels-container">
-                    <label className="register__label">
-                        <span className="register__label-text">Имя</span>
+                <h1 className="commonForm__title">Добро пожаловать!</h1>
+                <div className="commonForm__labels-container">
+                    <label className="commonForm__label">
+                        <span className="commonForm__label-text">Имя</span>
                         <input
                             name="name"
-                            className={`register__input`}
+                            className={`commonForm__input`}
                             defaultValue={''}
                             type="text"
                             required
@@ -25,41 +26,41 @@ export default function Register() {
                             maxLength="30"
                             pattern="^[A-Za-zА-Яа-яЁё /s -]+$"
                         />
-                        <span className="register__error">ошибка имени</span>
+                        <span className="commonForm__error">ошибка имени</span>
                     </label>
-                    <label className="register__label">
-                        <span className="register__label-text">E-mail</span>
+                    <label className="commonForm__label">
+                        <span className="commonForm__label-text">E-mail</span>
                         <input
                             name="email"
-                            className={'register__input register__input_error'}
+                            className={'commonForm__input commonForm__input_error'}
                             defaultValue=""
                             type="email"
                             required
                         />
-                        <span className="register__error">ошибка мыла</span>
+                        <span className="commonForm__error">ошибка мыла</span>
                     </label>
-                    <label className="register__label">
-                        <span className="register__label-text">Пароль</span>
+                    <label className="commonForm__label">
+                        <span className="commonForm__label-text">Пароль</span>
                         <input
                             name="password"
-                            className={'register__input'}
+                            className={'commonForm__input'}
                             defaultValue={''}
                             type="password"
                             required
                         />
-                        <span className="register__error">ошибка пароля</span>
+                        <span className="commonForm__error">ошибка пароля</span>
                     </label>
                 </div>
                 <button
                     type="submit"
-                    className={`register__button register__button_disabled`} // для теста
+                    className={`commonForm__button commonForm__button_disabled`} // для теста
                     disabled={false}
                 >
                     Зарегистрироваться
                 </button>
-                <span className="register__support">
+                <span className="commonForm__support">
           Уже зарегистрированы?&nbsp;
-                    <Link to="signin" className="register__link">
+                    <Link to="signin" className="commonForm__link">
             Войти
           </Link>
         </span>

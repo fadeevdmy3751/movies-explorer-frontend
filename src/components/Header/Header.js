@@ -3,10 +3,9 @@ import logo from '../../images/logo.svg';
 import './Header.css';
 import Navigation from "../Navigation/Navigation";
 
-export default function Header({loggedIn, onClickBurger, isBurgerOpened, switchLogin}) {
+export default function Header({loggedIn, onClickBurger, isBurgerOpened}) {
     return (
-        <header className='header'
-                onClick={switchLogin}>
+        <header className='header'>
             <div className="header__container">
                 <Link to='/' className='header__link'>
                     <img src={logo} alt="Логотип"/>
