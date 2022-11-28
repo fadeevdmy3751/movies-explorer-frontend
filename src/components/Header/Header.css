@@ -12,6 +12,7 @@
     padding: 18px 70px;
     position: relative;
     box-sizing: border-box;
+    justify-content: space-between;
 }
 
 .header__link {
