@@ -62,7 +62,7 @@ export default function Navigation({loggedIn, isBurgerOpened, onClickBurger, clo
                                      activeClassName={activeLink}
                                      onClick={closeBurger}>
                                 Аккаунт
-                                <img className='navigation__link navigation__account-img' alt='профиль'
+                                <img className='navigation__account-img' alt='профиль'
                                      src={profile_pic}/>
                             </NavLink>
                         </li>
