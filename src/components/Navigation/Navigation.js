@@ -43,7 +43,7 @@ export default function Navigation({loggedIn, isBurgerOpened, onClickBurger, clo
                                 </NavLink>
                             </li>
                         )}
-                        <div className='navigation__list_left'>
+                        <div className='navigation__list-left'>
                             <li className='navigation__item'>
                                 <NavLink to='/movies' className='navigation__link' activeClassName={activeLink}
                                          onClick={closeBurger}>

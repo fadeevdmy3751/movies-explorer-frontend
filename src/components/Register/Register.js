@@ -7,7 +7,7 @@ export default function Register() {
     return (
         <main className="commonForm">
             <form className="commonForm__form" name="register"
-                  noValidate
+                //noValidate
             >
                 <Link to="/" className="commonForm__link">
                     <img src={logo} alt="Логотип" className="commonForm__logo"/>

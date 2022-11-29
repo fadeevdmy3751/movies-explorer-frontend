@@ -10,7 +10,9 @@ export default function Profile({loggedIn, handleSignOut}) {
     } // заглушка
 
     return (<main className="profile">
-        <form className="profile__form" name="profile" noValidate onSubmit={handleSubmit}>
+        <form className="profile__form" name="profile"
+            //noValidate
+              onSubmit={handleSubmit}>
             <h1 className="profile__title">{`Привет, ${currentUser.name || ''}!`}</h1>
             <div className="profile__labels-container">
                 <label className="profile__label">
