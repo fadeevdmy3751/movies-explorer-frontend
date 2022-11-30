@@ -42,13 +42,13 @@ export default function App() {
     function handleLogin({email}) {
         setLoggedIn(true)
         setCurrentUser({name: email.split('@')[0], email})
-        history.push('/')
+        history.push('/films')
     } // заглушка
 
     function handleSignOut() {
         setLoggedIn(false)
         setCurrentUser({name: "", email: ""})
-        history.push('/signin')
+        history.push('/movies')
     }
 
     return (
