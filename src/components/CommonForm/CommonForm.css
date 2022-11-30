@@ -1,0 +1,191 @@
+.commonForm {
+    max-width: 1280px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 70px 30px 74px;
+    box-sizing: border-box;
+    min-height: 100vh;
+}
+
+.commonForm__form {
+    width: 100%;
+    max-width: 396px;
+    min-height: calc(100vh - 144px);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    position: relative;
+}
+
+.commonForm__link {
+    transition: all .3s ease;
+    color: var(--blue-accent-color);
+    text-decoration: none;
+    line-height: 0;
+    max-width: 38px;
+}
+
+.commonForm__link:hover {
+    opacity: .7;
+}
+
+.commonForm__logo {
+    /*transition: all .3s ease;*/
+    width: 38px;
+    height: 38px;
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.commonForm__logo:hover {
+    /*transform: rotate(360deg)*/
+    animation: rotate .5s linear infinite;
+}
+
+.commonForm__title {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    margin: 0;
+}
+
+.commonForm__labels-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+.commonForm__label {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.commonForm__label-text {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--font-color-secondary);
+}
+
+.commonForm__input {
+    padding: 16px 15px 13px;
+    box-sizing: border-box;
+    border-style: none;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    background-color: var(--input-color);
+    border-radius: 8px;
+    height: 46px;
+    color: var(--font-color-primary);
+}
+
+.commonForm__input_error {
+    color: var(--red-accent-color);
+}
+
+.commonForm__input[type='email'] {
+    font-weight: 500;
+}
+
+.commonForm__error {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--red-accent-color);
+    position: absolute;
+    top: 74px;
+    left: 0;
+}
+
+.commonForm__button {
+    margin-top: auto;
+    border-style: none;
+    background-color: var(--blue-accent-color);
+    border-radius: 3px;
+    color: var(--font-color-primary);
+    font-size: 14px;
+    line-height: 17px;
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 12px;
+    box-sizing: border-box;
+    transition: all .3s ease;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.commonForm__button:hover {
+    opacity: .8;
+}
+
+.commonForm__button_disabled {
+    background-color: var(--button-color);
+    color: var(--font-color-secondary);
+    cursor: default;
+}
+
+.commonForm__support {
+    margin-top: -24px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--font-color-secondary);
+    text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+    .commonForm__form {
+        min-height: calc(100vh - 250px);
+    }
+
+    .commonForm__button {
+        padding-top: 17px;
+        padding-bottom: 11px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .commonForm {
+        padding-top: 56px;
+        padding-bottom: 34px;
+        justify-content: flex-start;
+    }
+
+    .commonForm__form {
+        align-items: center;
+        gap: 50px;
+        flex: 1;
+    }
+
+    .commonForm__labels-container {
+        margin-top: 30px;
+        gap: 30px;
+    }
+
+    .commonForm__button {
+        font-size: 12px;
+        line-height: 16px;
+        padding-top: 19px;
+        padding-bottom: 11px;
+    }
+
+    .commonForm__support {
+        font-size: 12px;
+        line-height: 16px;
+        margin-top: -36px;
+    }
+
+}

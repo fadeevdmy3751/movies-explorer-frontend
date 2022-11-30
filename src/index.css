@@ -1,0 +1,21 @@
+:root {
+    /*  переменные */
+    --font-color-primary: white; /* var(--font-color-primary) */
+    --font-color-secondary: #8B8B8B; /* var(--font-color-secondary) */
+    /* A0A0A0 сюда же */
+    --main-background: #202020; /* var(--main-background) */
+    --card-background: #222222; /* var(--card-background) */
+    --stroke-color-dark: #424242; /* var(--stroke-color-dark) */
+    --button-color: #303030; /* var(--button-color) */
+    --like-color: #2BE080; /* var(--like-color) */
+    --unlike-color: #313131; /* var(--unlike-color) */
+    --green-accent-color: #3DDC84; /* var(--green-accent-color) */
+    --blue-accent-color: #4285F4; /* var(--blue-accent-color) */
+    --input-color: #2F2F2F; /* var(--input-color) */
+    --red-accent-color: #EE3465; /* var(--red-accent-color) */
+    --black-text-on-green: black; /* var(--black-text-on-green) */
+    --stroke-color-lite: #DADADA; /* var(--stroke-color-lite) */
+    --blocks-background: #272727; /* var(--blocks-background) */
+    --white-stripes: #E6E6E6; /* var(--white_stripes) */
+
+}

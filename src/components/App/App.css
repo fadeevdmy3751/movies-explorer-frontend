@@ -1,0 +1,13 @@
+.app {
+    background-color: #202020;
+    min-height: 100vh;
+    min-width: 320px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    font-family: 'Inter', Arial, sans-serif;
+    color: var(--font-color-primary);
+    overflow: hidden;
+}
