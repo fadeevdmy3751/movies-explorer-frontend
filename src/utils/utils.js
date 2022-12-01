@@ -31,6 +31,14 @@ function filterShorts(movies) {
     return movies.filter(movie => movie.duration < SHORTS_DUR);
 }
 
+function filterQuery(movie, query) {
+    return (
+      movie.nameRU.includes(query) ||
+      movie.nameEN.includes(query) ||
+      movie.description.includes(query)
+    )
+}
+
 // преобразование длительности
 function niceDuration(duration) {
     const hours = Math.trunc(duration / 60);
@@ -42,4 +50,14 @@ function niceDuration(duration) {
     }
 }
 
-export {filterShorts, niceDuration}
+// проверка ответа от апи
+function checkResponse(res, errorMes) {
+    if (res.ok) {
+        return res.json();
+    }
+    // если ошибка, отклоняем промис
+    return Promise.reject(`${errorMes + res.status}`);
+}
+
+
+export {filterShorts, niceDuration, checkResponse, filterQuery}

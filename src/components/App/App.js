@@ -12,6 +12,7 @@ import Page404 from "../Page404/Page404";
 import Footer from "../Footer/Footer";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Preloader from "../Preloader/Preloader";
+import getAllMovies from "../../utils/MoviesApi";
 
 
 const headerPaths = ['/movies', '/saved-movies', '/profile', '/'];
@@ -22,14 +23,7 @@ export default function App() {
     const [currentUser, setCurrentUser] = useState({});
     const [isBurgerOpened, setIsBurgerOpened] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [showLoader, setshowLoader] = useState(true)
     const history = useHistory()
-
-    useEffect(() => {
-        setTimeout(() => {
-            setshowLoader(false)
-        }, 3000)
-    })
 
     function onClickBurger() {
         setIsBurgerOpened(!isBurgerOpened);
@@ -42,12 +36,13 @@ export default function App() {
     function handleLogin({email}) {
         setLoggedIn(true)
         setCurrentUser({name: email.split('@')[0], email})
-        history.push('/films')
+        history.push('/movies')
     } // заглушка
 
     function handleSignOut() {
         setLoggedIn(false)
         setCurrentUser({name: "", email: ""})
+        localStorage.removeItem("films")
         history.push('/movies')
     }
 
@@ -65,7 +60,6 @@ export default function App() {
                 </Route>
                 <Switch>
                     <Route exact path='/'>
-                        {showLoader && <Preloader/>}
                         <Main/>
                     </Route>
                     <Route exact path='/signup'>
@@ -74,12 +68,12 @@ export default function App() {
                     <Route exact path='/signin'>
                         <Login handleLogin={handleLogin}/>
                     </Route>
-                    <Route exact path='/movies'>
+                    <Route exact path= {["/movies", "/saved-movies"]}>
                         <Movies/>
                     </Route>
-                    <Route exact path='/saved-movies'>
-                        <Movies/>
-                    </Route>
+                    {/*<Route exact path='/saved-movies'>*/}
+                    {/*    <Movies/>*/}
+                    {/*</Route>*/}
                     <Route exact path='/profile'>
                         <Profile
                             loggedIn={loggedIn}
