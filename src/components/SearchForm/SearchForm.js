@@ -1,9 +1,10 @@
 import './SearchForm.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-export default function SearchForm({handleShorts, shortsOnly}) {
+export default function SearchForm({handleShorts, shortsOnly, handleSearch}) {
     function handleSubmit(e) {
         e.preventDefault()
+        handleSearch(e.target.elements.search.value)
     }
 
     const errorText = ''

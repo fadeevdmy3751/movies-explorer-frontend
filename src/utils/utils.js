@@ -32,10 +32,11 @@ function filterShorts(movies) {
 }
 
 function filterQuery(movie, query) {
+    const lowerQ = query.toLowerCase().trim()
     return (
-      movie.nameRU.includes(query) ||
-      movie.nameEN.includes(query) ||
-      movie.description.includes(query)
+        movie.nameRU.toLowerCase().includes(lowerQ) ||
+        movie.nameEN.toLowerCase().includes(lowerQ) ||
+        movie.description.toLowerCase().includes(lowerQ)
     )
 }
 
@@ -43,7 +44,7 @@ function filterQuery(movie, query) {
 function niceDuration(duration) {
     const hours = Math.trunc(duration / 60);
     const minutes = duration % 60;
-    if(hours === 0) {
+    if (hours === 0) {
         return `${minutes}м`;
     } else {
         return `${hours}ч${minutes}м`;
@@ -60,4 +61,4 @@ function checkResponse(res, errorMes) {
 }
 
 
-export {filterShorts, niceDuration, checkResponse, filterQuery}
+export {simplifyMovie, filterShorts, niceDuration, checkResponse, filterQuery}
