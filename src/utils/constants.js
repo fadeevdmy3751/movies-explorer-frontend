@@ -1,27 +1,27 @@
 const SHORTS_DUR = 40;
-const WIDTH_PARAMS = {
-  col_4: {
-    width: 1280,
-    total: 12,
-    more: 4
-  },
-  // todo actualize width
-  col_3: {
-    width: 1000,
-    total: 12,
-    more: 3
-  },
-  col_2: {
-    width: 800,
-    total: 8,
-    more: 2
-  },
-  col_1: {
-    width: 400,
-    total: 5,
-    more: 1
-  },
-}
+const WIDTH_PARAMS = [
+    {
+        width: 1280,
+        total: 12,
+        more: 4
+    },
+    // todo actualize width
+    {
+        width: 910,
+        total: 12,
+        more: 3
+    },
+    {
+        width: 580,
+        total: 8,
+        more: 2
+    },
+    {
+        width: 200,
+        total: 5,
+        more: 2
+    },
+]
 
 
-export {SHORTS_DUR,WIDTH_PARAMS}
+export {SHORTS_DUR, WIDTH_PARAMS}
