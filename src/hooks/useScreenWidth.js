@@ -8,7 +8,7 @@ export default function useScreenWidth() {
 
     function handleScreenResize() {
       setScreenWidth(getScreenWidth());
-    };
+    }
 
     window.addEventListener('resize', resizeController, false); // при монтировании ставим обработчик
 
@@ -21,7 +21,7 @@ export default function useScreenWidth() {
           handleScreenResize();
         }, 1000); // 1 кадр в секунду
       }
-    };
+    }
 
     return () => window.removeEventListener('resize', handleScreenResize);  // убираем при размонтировании
   }, [getScreenWidth]);
