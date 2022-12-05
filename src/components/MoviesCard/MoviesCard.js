@@ -2,18 +2,18 @@ import './MoviesCard.css';
 import {niceDuration} from "../../utils/utils";
 import {useLocation} from "react-router-dom";
 
-export default function MoviesCard({movie}) {
+export default function MoviesCard({ movie, saved, onLikeClick, onDeleteClick }) {
   const location = useLocation();
-  // заглушка
+  
+  // сохранение фильма
   function handleLikeClick() {
+    onLikeClick(movie);
   }
   
-  // заглушка
+  // удаление фильма
   function handleDeleteClick() {
+    onDeleteClick(movie);
   }
-  
-  // заглушка
-  let saved = movie.nameRU.length % 2
   
   return (
     <li className="movies-card">

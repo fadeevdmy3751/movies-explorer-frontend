@@ -1,132 +1,137 @@
 const MainApiUrl = "https://api.fadeeploma.nomoredomains.club/api/"
-const apiConfig = {
-    baseUrl: MainApiUrl,
-    headers: {
-        credentials: 'include',
-        'Content-Type': 'application/json'
-    }
-}
-const fetchOptions = {
-    method: requestMethod,
-    headers: this._headers,
-    credentials: 'include'
-};
 
 // класс для взаимодействия с сервером
 class Api {
-    // todo rewrite all as in Mesto
-    constructor({baseUrl}) {
-        this._baseUrl = baseUrl;
+  apiConfig = {
+    // baseUrl: MainApiUrl,
+    headers: {
+      credentials: 'include',
+      'Content-Type': 'application/json'
     }
-
-    // проверка статуса запроса
-    async _requestResult(res) {
-        const result = await res.json();
-        return res.ok ? result : Promise.reject(result.message);
+  }
+  
+  constructor(baseUrl) {
+    this._baseUrl = baseUrl;
+    this._headers = this.apiConfig.headers
+  }
+  
+  _makeFetch(fetchResource, requestMethod, errorMes, requestBody = undefined) {
+    const fetchOptions = {
+      method: requestMethod,
+      headers: this._headers,
+      credentials: 'include'
+    };
+    
+    // проверка на наличие body и включение в тело запроса
+    if (requestBody !== undefined) {
+      fetchOptions.body = JSON.stringify(requestBody);
     }
-
-    // регистрация
-    createUser(name, email, password) {
-        return fetch(`${this._baseUrl}/signup`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                name,
-                email,
-                password,
-            }),
-        }).then(res => this._requestResult(res));
-    }
-
-    // вход
-    login(email, password) {
-        return fetch(`${this._baseUrl}/signin`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({email, password}),
-        }).then(res => this._requestResult(res));
-    }
-
-    signout() {
-        fetch(`${this._baseUrl}/logout`, {
-            method: 'POST',
-            credentials: 'include',
-        })
-            .then(res => res.json())
-            .then((data) => {
-                console.log('logout:', data)
-            })
-    }
+    
+    return fetch(fetchResource, fetchOptions)
+    .then(res => this._checkResponse(res, errorMes))
+  }
+  
+  // todo rewrite all as in Mesto
+  
+  // проверка статуса запроса
+  async _requestResult(res) {
+    const result = await res.json();
+    return res.ok ? result : Promise.reject(result.message);
+  }
+  
+  // регистрация
+  createUser(name, email, password) {
+    return this._makeFetch(`${this._baseUrl}/signup`,
+      'POST',
+      'ошибка создания пользователя',
+      {
+        name,
+        email,
+        password,
+      })
+    .then(res => this._requestResult(res));
+  }
+  
+  // вход
+  login(email, password) {
+    return this._makeFetch(`${this._baseUrl}/signin`,
+      'POST',
+      'ошибка входа',
+      {email, password}
+    )
+    .then(res => this._requestResult(res));
+  }
+  
+  logout() {
+    return this._makeFetch(`${this._baseUrl}/logout`,
+      'POST',
+      'ошибка выхода'
+    )
+    .then(res => res.json())
+  }
 
 // todo везде авторизацию на переделать
-    // запрос данных пользователя
-    getUserInfo() {
-        return fetch(`${this._baseUrl}/users/me`, {
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('jwt')}`,
-            },
-        }).then(res => this._requestResult(res));
-    }
-
-    // запрос на редактирование данных пользователя
-    updateUser(name, email) {
-        return fetch(`${this._baseUrl}/users/me`, {
-            method: 'PATCH',
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('jwt')}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({name, email}),
-        }).then(res => this._requestResult(res));
-    }
-
-    // запрос фильмов
-    getSavedMovies() {
-        return fetch(`${this._baseUrl}/movies`, {
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('jwt')}`,
-            },
-        }).then(res => this._requestResult(res));
-    }
-
-    // сохранение фильма
-    addNewMovie(data) {
-        return fetch(`${this._baseUrl}/movies`, {
-            method: 'POST',
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('jwt')}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                country: data.country,
-                director: data.director,
-                duration: data.duration,
-                year: data.year,
-                description: data.description,
-                image: data.image,
-                trailerLink: data.trailerLink,
-                thumbnail: data.thumbnail,
-                movieId: data.id,
-                nameRU: data.nameRU,
-                nameEN: data.nameEN,
-            }),
-        }).then(res => this._requestResult(res));
-    }
-
-    // удаление фильма из сохранённых
-    deleteMovie(data) {
-        return fetch(`${this._baseUrl}/movies/${data}`, {
-            method: 'DELETE',
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('jwt')}`,
-            },
-        }).then(res => this._requestResult(res));
-    }
+  // запрос данных пользователя
+  getUserInfo() {
+    return this._makeFetch(`${this._baseUrl}/users/me`,
+      'GET',
+      'Ошибка getUserInfo'
+    )
+    .then(res => this._requestResult(res));
+  }
+  
+  // запрос на редактирование данных пользователя
+  updateUser(name, email) {
+    return this._makeFetch(`${this._baseUrl}/users/me`,
+      'PATCH',
+      'ошибка обновления пользователя',
+      {name, email}
+    )
+    .then(res => this._requestResult(res));
+  }
+  
+  // запрос фильмов
+  getSavedMovies() {
+    return this._makeFetch(`${this._baseUrl}/movies`,
+      'GET',
+      'ошибка getSavedMovies'
+    )
+    .then(res => this._requestResult(res));
+  }
+  
+  // сохранение фильма
+  addNewMovie(data) {
+    return this._makeFetch(`${this._baseUrl}/movies`,
+      'POST',
+      'ошибка сохранение фильма',
+      {
+        country: data.country,
+        director: data.director,
+        duration: data.duration,
+        year: data.year,
+        description: data.description,
+        image: data.image,
+        trailerLink: data.trailerLink,
+        thumbnail: data.thumbnail,
+        movieId: data.id,
+        nameRU: data.nameRU,
+        nameEN: data.nameEN,
+      }
+    )
+    .then(res => this._requestResult(res));
+  }
+  
+  // удаление фильма из сохранённых
+  deleteMovie(data) {
+    return this._makeFetch(`${this._baseUrl}/movies/${data}`,
+      'DELETE',
+      'ошибка удаление фильма из сохранённых'
+    )
+    .then(res => this._requestResult(res));
+  }
 }
 
-const mainApi = new Api({
-    // создаём экземляр класса работающего с API сервера
-    baseUrl: MainApiUrl,
-});
+// создаём экземляр класса работающего с API сервера
+const mainApi = new Api(MainApiUrl);
 
 export default mainApi;
