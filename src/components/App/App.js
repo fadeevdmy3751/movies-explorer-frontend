@@ -15,6 +15,7 @@ import useEscapePress from "../../hooks/useEscapePress";
 import mainApi from "../../utils/MainApi";
 import Preloader from "../Preloader/Preloader";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 
 const headerPaths = ['/movies', '/saved-movies', '/profile', '/'];
@@ -28,8 +29,8 @@ export default function App() {
   const [isBurgerOpened, setIsBurgerOpened] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [load, setLoad] = useState(false);
-  const [showLoader, setShowLoader] = useState(false) //todo del isLoader
-  const [InfoTooltip, setInfoTooltip] = useState({    //todo del isInfoTooltip
+  const [showLoader, setShowLoader] = useState(false)
+  const [TooltipOpen, setTooltipOpen] = useState({
     isOpen: false,
     successful: true,
     text: '',
@@ -43,7 +44,7 @@ export default function App() {
   useEscapePress(onClickBurger, isBurgerOpened);
   
   function closeInfoTooltip() {
-    setInfoTooltip({...InfoTooltip, isOpen: false});
+    setTooltipOpen({...TooltipOpen, isOpen: false});
   }
   
   function closeBurger() {
@@ -60,7 +61,7 @@ export default function App() {
       }
     })
     .catch(err =>
-      setInfoTooltip({
+      setTooltipOpen({
         isOpen: true,
         successful: false,
         text: err,
@@ -79,7 +80,7 @@ export default function App() {
       } else {
         setLoggedIn(true);
         history.push('/movies');
-        setInfoTooltip({
+        setTooltipOpen({
           isOpen: true,
           successful: true,
           text: 'Добро пожаловать!',
@@ -87,7 +88,7 @@ export default function App() {
       }
     })
     .catch(err =>
-      setInfoTooltip({
+      setTooltipOpen({
         isOpen: true,
         successful: false,
         text: err,
@@ -101,7 +102,7 @@ export default function App() {
     setLoggedIn(false);
     localStorage.clear();
     mainApi.logout().then((data) => {
-        setInfoTooltip({
+        setTooltipOpen({
           isOpen: true,
           successful: true,
           text: 'Успешно разлогинен!',
@@ -110,7 +111,7 @@ export default function App() {
       }
     )
     .catch(err =>
-      setInfoTooltip({
+      setTooltipOpen({
         isOpen: true,
         successful: false,
         text: err,
@@ -124,14 +125,14 @@ export default function App() {
     .updateUser(name, email)
     .then(newUserData => {
       setCurrentUser(newUserData);
-      setInfoTooltip({
+      setTooltipOpen({
         isOpen: true,
         successful: true,
         text: 'Ваши данные обновлены!',
       });
     })
     .catch(err =>
-      setInfoTooltip({
+      setTooltipOpen({
         isOpen: true,
         successful: false,
         text: err,
@@ -146,7 +147,7 @@ export default function App() {
     .addNewMovie(movie)
     .then(newMovie => setSavedMoviesList([newMovie, ...savedMoviesList]))
     .catch(err =>
-      setInfoTooltip({
+      setTooltipOpen({
         isOpen: true,
         successful: false,
         text: err,
@@ -167,7 +168,7 @@ export default function App() {
       setSavedMoviesList(newMoviesList);
     })
     .catch(err =>
-      setInfoTooltip({
+      setTooltipOpen({
         isOpen: true,
         successful: false,
         text: err,
@@ -187,7 +188,7 @@ export default function App() {
       }
     })
     .catch(err =>
-      setInfoTooltip({
+      setTooltipOpen({
         isOpen: true,
         successful: false,
         text: err,
@@ -205,7 +206,7 @@ export default function App() {
       mainApi.getUserInfo()
       .then(me => setCurrentUser(me))
       .catch((err) =>
-        setInfoTooltip({
+        setTooltipOpen({
           isOpen: true,
           successful: false,
           text: err,
@@ -225,12 +226,14 @@ export default function App() {
         const UserMoviesList = data.filter(m => m.owner === currentUser._id);
         setSavedMoviesList(UserMoviesList);
       })
-      .catch(err =>
-        setInfoTooltip({
+      .catch(err =>{
+        console.log(err)
+        setTooltipOpen({
           isOpen: true,
           successful: false,
           text: err,
         })
+      }
       );
     }
   }, [currentUser, loggedIn]);
@@ -275,7 +278,7 @@ export default function App() {
               component={Movies}
               loggedIn={loggedIn}
               setShowLoader={setShowLoader}
-              setInfoTooltip={setInfoTooltip}
+              setInfoTooltip={setTooltipOpen}
               savedMoviesList={savedMoviesList}
               onLikeClick={handleSaveMovie}
               onDeleteClick={handleDeleteMovie}
@@ -286,7 +289,7 @@ export default function App() {
               loggedIn={loggedIn}
               savedMoviesList={savedMoviesList}
               onDeleteClick={handleDeleteMovie}
-              setIsInfoTooltip={setInfoTooltip}
+              setInfoTooltip={setTooltipOpen}
             />
             <ProtectedRoute
               path='/profile'
@@ -304,7 +307,7 @@ export default function App() {
           </Route>
           {showLoader ? <Preloader/> : null}
           <InfoTooltip
-            status={InfoTooltip}
+            status={TooltipOpen}
             onClose={closeInfoTooltip}
           />
         </CurrentUserContext.Provider>

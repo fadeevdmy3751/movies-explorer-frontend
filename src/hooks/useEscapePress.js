@@ -14,5 +14,5 @@ export default function useEscapePress(callback, dependency) {
         document.removeEventListener('keyup', onEscClose)
       };
     }
-  }, [dependency])
+  }, [dependency, callback])
 }

@@ -9,7 +9,7 @@ export default function FilterCheckbox({state, handleShorts}) {
         onChange={handleShorts}
         checked={state}
       />
-      <span className="filter__tumbler"></span>
+      <span className="filter__tumbler"/>
       <span className="filter__text">Короткометражки</span>
     </label>
   );

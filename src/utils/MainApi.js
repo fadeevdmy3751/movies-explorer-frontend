@@ -15,6 +15,14 @@ class Api {
     this._headers = this.apiConfig.headers
   }
   
+  _checkResponse(res, errorMes) {
+    if (res.ok) {
+      return res.json();
+    }
+    // если ошибка, отклоняем промис
+    return Promise.reject(`${errorMes + res.status}`);
+  }
+  
   _makeFetch(fetchResource, requestMethod, errorMes, requestBody = undefined) {
     const fetchOptions = {
       method: requestMethod,

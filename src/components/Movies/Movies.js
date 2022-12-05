@@ -7,7 +7,7 @@ import getAllMovies from "../../utils/MoviesApi";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 // const moviesList = require('../../utils/beatfilm_mock_data')
-
+//todo adapt savedmovies
 export default function Movies({
                                  setShowLoader,
                                  setInfoTooltip,
