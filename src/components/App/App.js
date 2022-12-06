@@ -288,6 +288,7 @@ export default function App() {
                             path='/saved-movies'
                             component={Movies}
                             loggedIn={loggedIn}
+                            setShowLoader={setShowLoader}
                             savedMoviesList={savedMoviesList}
                             onDeleteClick={handleDeleteMovie}
                             setInfoTooltip={setTooltipOpen}

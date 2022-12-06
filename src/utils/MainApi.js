@@ -1,4 +1,4 @@
-const MainApiUrl = "https://api.fadeeploma.nomoredomains.club/api/"
+const MainApiUrl = "https://api.fadeeploma.nomoredomains.club/api"
 
 // класс для взаимодействия с сервером
 class Api {
