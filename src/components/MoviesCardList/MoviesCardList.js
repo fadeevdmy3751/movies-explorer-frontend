@@ -1,9 +1,9 @@
 import './MoviesCardList.css';
-import MoviesCard from "../MoviesCard/MoviesCard";
 import {useLocation} from "react-router-dom";
-import {getSavedMovieCard} from "../../utils/utils";
-import useScreenWidth from "../../hooks/useScreenWidth";
 import {useEffect, useState} from "react";
+import useScreenWidth from "../../hooks/useScreenWidth";
+import {getSavedMovieCard} from "../../utils/utils";
+import MoviesCard from "../MoviesCard/MoviesCard";
 import {WIDTH_PARAMS} from '../../utils/constants'
 
 export default function MoviesCardList({moviesList, savedMoviesList, onLikeClick, onDeleteClick}) {
@@ -42,7 +42,6 @@ export default function MoviesCardList({moviesList, savedMoviesList, onLikeClick
     // добавление карточек при клике по кнопке "Еще"
     function handleClickMoreMovies() {
         const start = showMovieList.length;
-        // const end = start + cardsShowDetails.more;
         const end = start + cardsShowDetails.more
         const additional = moviesList.length - start;
 
@@ -51,14 +50,14 @@ export default function MoviesCardList({moviesList, savedMoviesList, onLikeClick
             setShowMovieList([...showMovieList, ...newCards]);
         }
     }
-
+    
+    console.log({showMovieList})
     return (
         <section className="movies-card-list">
             <ul className="movies-card-list__list">
                 {showMovieList.map(movie => (
                     <MoviesCard
-                        // key={movie.id || movie._id}
-                        key={movie.movieId}
+                        key={location.pathname === '/movies' ? movie.movieId : movie._id}
                         saved={getSavedMovieCard(savedMoviesList, movie)}
                         onLikeClick={onLikeClick}
                         onDeleteClick={onDeleteClick}

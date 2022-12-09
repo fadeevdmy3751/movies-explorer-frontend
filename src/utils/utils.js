@@ -8,7 +8,7 @@
 import {SHORTS_DUR} from "./constants";
 
 function simplifyMovie(movie) {
-    const baseurl = 'https://api.nomoreparties.co/'
+    const baseurl = 'https://api.nomoreparties.co'
     let simped = {}
     simped.country = movie.country
     simped.director = movie.director
@@ -21,6 +21,7 @@ function simplifyMovie(movie) {
     simped.movieId = movie.id
     simped.nameRU = movie.nameRU
     simped.nameEN = movie.nameEN
+    simped._id = movie._id
     return simped
 }
 
@@ -66,11 +67,11 @@ function checkResponse(res, errorMes) {
     return Promise.reject(`${errorMes + res.status}`);
 }
 
-function getColumnsCount(selector) {
-    //'.movies-card-list__list'
-    const element = document.querySelector(selector)
-    return getComputedStyle(element).gridTemplateColumns.split(' ').length
-}
+// function getColumnsCount(selector) {
+//     //'.movies-card-list__list'
+//     const element = document.querySelector(selector)
+//     return getComputedStyle(element).gridTemplateColumns.split(' ').length
+// }
 
 // cравнение сохраненных фильмов
 function getSavedMovieCard(arr, movie) {
@@ -85,6 +86,6 @@ export {
     niceDuration,
     checkResponse,
     filterMovies,
-    getColumnsCount,
+    // getColumnsCount,
     getSavedMovieCard,
 }

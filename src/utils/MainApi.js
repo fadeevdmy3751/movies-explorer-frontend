@@ -16,7 +16,7 @@ class Api {
     }
 
     _checkResponse(res, errorMes) {
-        console.log(res, errorMes)
+        // console.log(res, errorMes)
         if (res.ok) {
             return res.json();
         }
@@ -110,9 +110,10 @@ class Api {
 
     // сохранение фильма
     addNewMovie(data) {
+        console.log(data)
         return this._makeFetch(`${this._baseUrl}/movies`,
             'POST',
-            'ошибка сохранение фильма',
+            'ошибка сохранения фильма',
             data
         )
         // .then(res => this._requestResult(res));

@@ -16,6 +16,7 @@ import mainApi from "../../utils/MainApi";
 import Preloader from "../Preloader/Preloader";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import SavedMovies from "../SavedMovies/SavedMovies";
 
 
 const headerPaths = ['/movies', '/saved-movies', '/profile', '/'];
@@ -37,6 +38,9 @@ export default function App() {
     });
     const [savedMoviesList, setSavedMoviesList] = useState([]);
 
+    //todo удалить путь.txt
+    //todo console.log удалять
+    
     function onClickBurger() {
         setIsBurgerOpened(!isBurgerOpened);
     }
@@ -141,7 +145,7 @@ export default function App() {
             .finally(() => setShowLoader(false));
     }
 
-//todo централизованная обработка ошибок
+
     function handleSaveMovie(movie) {
         mainApi
             .addNewMovie(movie)
@@ -156,15 +160,19 @@ export default function App() {
     }
 
     function handleDeleteMovie(movie) {
+        // console.log({movie})
         const savedMovie = savedMoviesList.find(
-            (item) => item.movieId === movie.id || item.movieId === movie.movieId
+            (item) => item._id === movie._id || item.movieId === movie.movieId
         );
+        // console.log({savedMovie})
         mainApi
             .deleteMovie(savedMovie._id)
             .then(() => {
-                const newMoviesList = savedMoviesList.filter(m => {
-                    return !(movie.id === m.movieId || movie.movieId === m.movieId);
-                });
+                // console.log('del success')
+                // console.log({movie})
+                // console.log({savedMoviesList})
+                const newMoviesList = savedMoviesList.filter(m => m._id !== savedMovie._id);
+                // console.log({newMoviesList})
                 setSavedMoviesList(newMoviesList);
             })
             .catch(err =>
@@ -286,7 +294,7 @@ export default function App() {
                         />
                         <ProtectedRoute
                             path='/saved-movies'
-                            component={Movies}
+                            component={SavedMovies}
                             loggedIn={loggedIn}
                             setShowLoader={setShowLoader}
                             savedMoviesList={savedMoviesList}

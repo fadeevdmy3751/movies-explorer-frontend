@@ -6,8 +6,6 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import getAllMovies from "../../utils/MoviesApi";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-// const moviesList = require('../../utils/beatfilm_mock_data')
-//todo adapt savedmovies
 export default function Movies({
                                    setShowLoader,
                                    setInfoTooltip,
@@ -18,10 +16,11 @@ export default function Movies({
     const currentUser = useContext(CurrentUserContext);
 
     const [shortsOnly, setShortsOnly] = useState(false); // состояние чекбокса
-    const [initialMovies, setInitialMovies] = useState([]); // фильмы полученные с запроса
+    // const [initialMovies, setInitialMovies] = useState([]); // фильмы полученные с запроса
     const [filteredMovies, setFilteredMovies] = useState([]); // отфильтрованные по чекбоксу и запросу фильмы
     const [NotFound, setNotFound] = useState(false); // если по запросу ничего не найдено - скроем фильмы
     const [AllMovies, setAllMovies] = useState([]); // все фильмы от сервера, для единоразового обращения к нему
+    
     // поиск по массиву и установка состояния
     function handleSetFilteredMovies(movies, userQuery, shortsOnlyCheckbox) {
         const moviesList = filterMovies(movies, userQuery, shortsOnlyCheckbox);
@@ -35,7 +34,7 @@ export default function Movies({
         } else {
             setNotFound(false);
         }
-        setInitialMovies(moviesList);
+        // setInitialMovies(moviesList);
         setFilteredMovies(
             shortsOnlyCheckbox ? filterShorts(moviesList) : moviesList
         );
@@ -74,18 +73,21 @@ export default function Movies({
         }
     }
 
-    // состояние чекбокса
+    // состояние чекбокса //вроде ок
     function handleShorts() {
         setShortsOnly(!shortsOnly);
+        console.log({filteredMovies})
         if (!shortsOnly) {
-            setFilteredMovies(filterShorts(initialMovies));
+            setFilteredMovies(filterShorts(filteredMovies))
+            // setFilteredMovies(filterShorts(initialMovies));
         } else {
-            setFilteredMovies(initialMovies);
+            setFilteredMovies(filteredMovies)
+            // setFilteredMovies(initialMovies);
         }
         localStorage.setItem(`${currentUser.email} - shortsOnly`, !shortsOnly);
     }
 
-    // проверка чекбокса в локальном хранилище
+    // проверка чекбокса в локальном хранилище //ок
     useEffect(() => {
         if (localStorage.getItem(`${currentUser.email} - shortsOnly`) === 'true') {
             setShortsOnly(true);
@@ -94,13 +96,14 @@ export default function Movies({
         }
     }, [currentUser]);
 
-    // рендер фильмов из локального хранилища
+    // рендер фильмов из локального хранилища для первого раза //ок
     useEffect(() => {
+        console.log('рендер фильмов из локального хранилища')
         if (localStorage.getItem(`${currentUser.email} - movies`)) {
             const movies = JSON.parse(
                 localStorage.getItem(`${currentUser.email} - movies`)
             );
-            setInitialMovies(movies);
+            // setInitialMovies(movies);
             if (
                 localStorage.getItem(`${currentUser.email} - shortsOnly`) === 'true'
             ) {
