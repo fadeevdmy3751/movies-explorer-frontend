@@ -50,8 +50,9 @@ export default function MoviesCardList({moviesList, savedMoviesList, onLikeClick
             setShowMovieList([...showMovieList, ...newCards]);
         }
     }
-    
+
     console.log({showMovieList})
+    console.log('movies-card-list rendered')
     return (
         <section className="movies-card-list">
             <ul className="movies-card-list__list">

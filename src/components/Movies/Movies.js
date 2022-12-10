@@ -19,11 +19,11 @@ export default function Movies({
     const [queriedMovies, setQueriedMovies] = useState([]); // фильмы по запросу
     const [filteredMovies, setFilteredMovies] = useState([]); // отфильтрованные по чекбоксу и запросу фильмы
     const [NotFound, setNotFound] = useState(false); // если по запросу ничего не найдено - скроем фильмы
-    const [AllMovies, setAllMovies] = useState([]); // все фильмы от сервера, для единоразового обращения к нему
+    // const [AllMovies, setAllMovies] = useState([]); // все фильмы от сервера, для единоразового обращения к нему
 
     // поиск по массиву и установка состояния
     function handleSetFilteredMovies(movies, userQuery, shortsOnlyCheckbox) {
-        const moviesList = filterMovies(movies, userQuery, shortsOnlyCheckbox);
+        const moviesList = filterMovies(movies, userQuery, false);
         if (moviesList.length === 0) {
             setInfoTooltip({
                 isOpen: true,
@@ -48,15 +48,17 @@ export default function Movies({
     function handleSearchSubmit(inputValue) {
         localStorage.setItem(`${currentUser.email} - movieSearch`, inputValue);
         localStorage.setItem(`${currentUser.email} - shortsOnly`, shortsOnly);
-        console.log({AllMovies})
-        if (AllMovies.length === 0) {
+        console.log(localStorage.getItem('AllMovies'))
+        // if (AllMovies.length === 0) {
+        if (!localStorage.getItem('AllMovies')) {   // correct
             setShowLoader(true);
             getAllMovies()
                 .then(movies => {
                     console.log({movies}, 'in the THEN')
                     const simpedMovies = movies.map(simplifyMovie)
-                    console.log({simpedMovies}, 'in the THEN')
-                    setAllMovies([...simpedMovies]);
+                    console.log({simpedMovies}, 'in the THEN: will set AllMovies')
+                    // setAllMovies([...simpedMovies]);
+                    localStorage.setItem('AllMovies', JSON.stringify(simpedMovies))
                     handleSetFilteredMovies(
                         simpedMovies,
                         inputValue,
@@ -72,6 +74,7 @@ export default function Movies({
                 )
                 .finally(() => setShowLoader(false));
         } else {
+            const AllMovies = JSON.parse(localStorage.getItem('AllMovies'))
             handleSetFilteredMovies(AllMovies, inputValue, shortsOnly);
         }
     }
