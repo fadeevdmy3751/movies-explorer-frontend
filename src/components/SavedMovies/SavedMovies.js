@@ -1,5 +1,5 @@
 import '../Movies/Movies.css';
-import {filterMovies, filterShorts } from "../../utils/utils";
+import {filterMovies, filterShorts} from "../../utils/utils";
 import {useContext, useEffect, useState} from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
@@ -7,17 +7,17 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 
 export default function SavedMovies({
-                                   setInfoTooltip,
-                                   savedMoviesList,
-                                   onDeleteClick
-                               }) {
+                                        setInfoTooltip,
+                                        savedMoviesList,
+                                        onDeleteClick
+                                    }) {
     const currentUser = useContext(CurrentUserContext);
 
     const [shortsOnly, setShortsOnly] = useState(false); // состояние чекбокса
     const [filteredMovies, setFilteredMovies] = useState([]); // отфильтрованные по чекбоксу и запросу фильмы
     const [NotFound, setNotFound] = useState(false); // если по запросу ничего не найдено - скроем фильмы
     const [showedMovies, setShowedMovies] = useState(savedMoviesList); // показываемывые фильмы
-    
+
     // поиск по запросу
     function handleSearchSubmit(inputValue) {
         const moviesList = filterMovies(savedMoviesList, inputValue, shortsOnly);
@@ -30,42 +30,44 @@ export default function SavedMovies({
             });
         } else {
             setNotFound(false);
-            setFilteredMovies(moviesList);
-            setShowedMovies(moviesList);
+            setFilteredMovies([...moviesList]);
+            setShowedMovies([...moviesList]);
         }
     }
-    
+
     // состояние чекбокса
     function handleShorts() {
         if (!shortsOnly) {
             setShortsOnly(true);
-            localStorage.setItem(`${currentUser.email} - shortSavedMovies`, true);
+            localStorage.setItem(`${currentUser.email} - shortSaved`, true);
             setShowedMovies(filterShorts(filteredMovies));
+            //todo check nexts
             filterShorts(filteredMovies).length === 0 ? setNotFound(true) : setNotFound(false);
         } else {
             setShortsOnly(false);
-            localStorage.setItem(`${currentUser.email} - shortSavedMovies`, false);
+            localStorage.setItem(`${currentUser.email} - shortSaved`, false);
             filteredMovies.length === 0 ? setNotFound(true) : setNotFound(false);
-            setShowedMovies(filteredMovies);
+            setShowedMovies([...filteredMovies]);
         }
     }
 
-    // проверка чекбокса в локальном хранилище
+    // чекбокс в локальном хранилище
     useEffect(() => {
-        if (localStorage.getItem(`${currentUser.email} - shortSavedMovies`) === 'true') {
+        if (localStorage.getItem(`${currentUser.email} - shortSaved`) === 'true') {
             setShortsOnly(true);
             setShowedMovies(filterShorts(savedMoviesList));
         } else {
             setShortsOnly(false);
-            setShowedMovies(savedMoviesList);
+            setShowedMovies([...savedMoviesList]);
         }
     }, [savedMoviesList, currentUser]);
-    
+
     useEffect(() => {
-        setFilteredMovies(savedMoviesList);
+        setFilteredMovies([...savedMoviesList]);
         savedMoviesList.length !== 0 ? setNotFound(false) : setNotFound(true);
     }, [savedMoviesList]);
 
+    console.log('moviesList rendered')
     return (
         <main className="movies">
             <SearchForm

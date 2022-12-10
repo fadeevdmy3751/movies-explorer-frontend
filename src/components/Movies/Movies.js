@@ -16,11 +16,11 @@ export default function Movies({
     const currentUser = useContext(CurrentUserContext);
 
     const [shortsOnly, setShortsOnly] = useState(false); // состояние чекбокса
-    // const [initialMovies, setInitialMovies] = useState([]); // фильмы полученные с запроса
+    const [queriedMovies, setQueriedMovies] = useState([]); // фильмы по запросу
     const [filteredMovies, setFilteredMovies] = useState([]); // отфильтрованные по чекбоксу и запросу фильмы
     const [NotFound, setNotFound] = useState(false); // если по запросу ничего не найдено - скроем фильмы
     const [AllMovies, setAllMovies] = useState([]); // все фильмы от сервера, для единоразового обращения к нему
-    
+
     // поиск по массиву и установка состояния
     function handleSetFilteredMovies(movies, userQuery, shortsOnlyCheckbox) {
         const moviesList = filterMovies(movies, userQuery, shortsOnlyCheckbox);
@@ -34,9 +34,9 @@ export default function Movies({
         } else {
             setNotFound(false);
         }
-        // setInitialMovies(moviesList);
+        setQueriedMovies([...moviesList]);
         setFilteredMovies(
-            shortsOnlyCheckbox ? filterShorts(moviesList) : moviesList
+            shortsOnlyCheckbox ? filterShorts(moviesList) : [...moviesList]
         );
         localStorage.setItem(
             `${currentUser.email} - movies`,
@@ -48,23 +48,26 @@ export default function Movies({
     function handleSearchSubmit(inputValue) {
         localStorage.setItem(`${currentUser.email} - movieSearch`, inputValue);
         localStorage.setItem(`${currentUser.email} - shortsOnly`, shortsOnly);
-
+        console.log({AllMovies})
         if (AllMovies.length === 0) {
             setShowLoader(true);
             getAllMovies()
                 .then(movies => {
-                    setAllMovies(movies.map(simplifyMovie));
+                    console.log({movies}, 'in the THEN')
+                    const simpedMovies = movies.map(simplifyMovie)
+                    console.log({simpedMovies}, 'in the THEN')
+                    setAllMovies([...simpedMovies]);
                     handleSetFilteredMovies(
-                        simplifyMovie(movies),
+                        simpedMovies,
                         inputValue,
                         shortsOnly
                     );
                 })
-                .catch(() =>
+                .catch((error) =>
                     setInfoTooltip({
                         isOpen: true,
                         successful: false,
-                        text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
+                        text: error + 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
                     })
                 )
                 .finally(() => setShowLoader(false));
@@ -75,19 +78,18 @@ export default function Movies({
 
     // состояние чекбокса //вроде ок
     function handleShorts() {
-        setShortsOnly(!shortsOnly);
+        console.log({queriedMovies})
         console.log({filteredMovies})
+        setShortsOnly(!shortsOnly);
         if (!shortsOnly) {
-            setFilteredMovies(filterShorts(filteredMovies))
-            // setFilteredMovies(filterShorts(initialMovies));
+            setFilteredMovies(filterShorts(queriedMovies));
         } else {
-            setFilteredMovies(filteredMovies)
-            // setFilteredMovies(initialMovies);
+            setFilteredMovies([...queriedMovies]);
         }
         localStorage.setItem(`${currentUser.email} - shortsOnly`, !shortsOnly);
     }
 
-    // проверка чекбокса в локальном хранилище //ок
+    // чекбокс в локальном хранилище //ок
     useEffect(() => {
         if (localStorage.getItem(`${currentUser.email} - shortsOnly`) === 'true') {
             setShortsOnly(true);
@@ -103,7 +105,7 @@ export default function Movies({
             const movies = JSON.parse(
                 localStorage.getItem(`${currentUser.email} - movies`)
             );
-            // setInitialMovies(movies);
+            setQueriedMovies(movies);
             if (
                 localStorage.getItem(`${currentUser.email} - shortsOnly`) === 'true'
             ) {
@@ -113,7 +115,7 @@ export default function Movies({
             }
         }
     }, [currentUser]);
-
+    console.log('movies rendered')
     return (
         <main className="movies">
             <SearchForm

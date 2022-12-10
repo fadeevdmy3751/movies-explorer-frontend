@@ -10,18 +10,22 @@ import {SHORTS_DUR} from "./constants";
 function simplifyMovie(movie) {
     const baseurl = 'https://api.nomoreparties.co'
     let simped = {}
-    simped.country = movie.country
-    simped.director = movie.director
-    simped.duration = movie.duration
-    simped.year = movie.year
-    simped.description = movie.description
-    simped.image = baseurl + movie.image.url
-    simped.trailerLink = movie.trailerLink
-    simped.thumbnail = baseurl + movie.image.formats.thumbnail.url
-    simped.movieId = movie.id
-    simped.nameRU = movie.nameRU
-    simped.nameEN = movie.nameEN
-    simped._id = movie._id
+    try {
+        simped.country = movie.country
+        simped.director = movie.director
+        simped.duration = movie.duration
+        simped.year = movie.year
+        simped.description = movie.description
+        simped.image = baseurl + movie.image.url
+        simped.trailerLink = movie.trailerLink
+        simped.thumbnail = baseurl + movie.image.formats.thumbnail.url
+        simped.movieId = movie.id
+        simped.nameRU = movie.nameRU
+        simped.nameEN = movie.nameEN
+        simped._id = movie._id
+    } catch (e) {
+        console.log(e)
+    }
     return simped
 }
 
@@ -33,25 +37,25 @@ function filterShorts(movies) {
 }
 
 function filterMovies(movies, userQuery, shortMoviesCheckbox) {
-    const moviesByUserQuery = movies.filter((movie) => {
-        const movieRu = String(movie.nameRU).toLowerCase().trim();
-        const movieEn = String(movie.nameEN).toLowerCase().trim();
-        const userMovie = userQuery.toLowerCase().trim();
-        return movieRu.indexOf(userMovie) !== -1 || movieEn.indexOf(userMovie) !== -1;
+    const filteredMovies = movies.filter((movie) => {
+        const movieRu = movie.nameRU.toLowerCase().trim();
+        const movieEn = movie.nameEN.toLowerCase().trim();
+        const description = movie.description.toLowerCase().trim();
+        const query = userQuery.toLowerCase().trim();
+        return movieRu.includes(query) || movieEn.includes(query) || description.includes(query);
     });
-
     if (shortMoviesCheckbox) {
-        return filterShorts(moviesByUserQuery);
+        return filterShorts(filteredMovies);
     } else {
-        return moviesByUserQuery;
+        return filteredMovies;
     }
 }
 
 // преобразование длительности
 function niceDuration(duration) {
-    const hours = Math.trunc(duration / 60);
+    const hours = Math.floor(duration / 60);
     const minutes = duration % 60;
-    if (hours === 0) {
+    if (!hours) {
         return `${minutes}м`;
     } else {
         return `${hours}ч${minutes}м`;
