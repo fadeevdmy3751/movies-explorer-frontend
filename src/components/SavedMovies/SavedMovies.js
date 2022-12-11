@@ -6,11 +6,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 
-export default function SavedMovies({
-                                        setMessageBox,
-                                        savedMoviesList,
-                                        onDeleteClick
-                                    }) {
+export default function SavedMovies({setMessageBox, savedMoviesList, onDeleteClick}) {
     const currentUser = useContext(CurrentUserContext);
 
     const [shortsOnly, setShortsOnly] = useState(false); // состояние чекбокса
@@ -41,7 +37,6 @@ export default function SavedMovies({
             setShortsOnly(true);
             localStorage.setItem(`${currentUser.email} - shortSaved`, true);
             setShowedMovies(filterShorts(filteredMovies));
-            //todo check nexts
             filterShorts(filteredMovies).length === 0 ? setNotFound(true) : setNotFound(false);
         } else {
             setShortsOnly(false);
@@ -67,7 +62,7 @@ export default function SavedMovies({
         savedMoviesList.length !== 0 ? setNotFound(false) : setNotFound(true);
     }, [savedMoviesList]);
 
-    console.log('moviesList rendered')
+    // console.log('savedMovies rendered')
     return (
         <main className="movies">
             <SearchForm

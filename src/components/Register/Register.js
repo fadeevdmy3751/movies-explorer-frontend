@@ -1,26 +1,25 @@
-// import './Register.css';
 import '../CommonForm/CommonForm.css';
 import {Link} from "react-router-dom";
 import logo from '../../images/logo.svg';
 import useFormWithValidation from '../../hooks/useFormWithValidation'
 import {useEffect} from "react";
 
-export default function Register({ handleRegister }) {
-    const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
-    
+export default function Register({handleRegister}) {
+    const {values, handleChange, resetForm, errors, isValid} = useFormWithValidation();
+
     function handleSubmit(e) {
         e.preventDefault();
         handleRegister(values);
     }
-    
+
     useEffect(() => {
         resetForm();
     }, [resetForm]);
-    
+
     return (
         <main className="commonForm">
             <form className="commonForm__form" name="register"
-                noValidate onSubmit={handleSubmit}>
+                  noValidate onSubmit={handleSubmit}>
                 <Link to="/" className="commonForm__link">
                     <img src={logo} alt="Логотип" className="commonForm__logo"/>
                 </Link>

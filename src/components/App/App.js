@@ -1,6 +1,6 @@
 import './App.css';
 
-import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
+import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Main from "../Main/Main";
 import Header from "../Header/Header";
@@ -25,18 +25,14 @@ const footerPaths = ['/movies', '/saved-movies', '/'];
 
 export default function App() {
     const history = useHistory()
-    const location = useLocation();
     const [currentUser, setCurrentUser] = useState({});
     const [isBurgerOpened, setIsBurgerOpened] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [load, setLoad] = useState(false); //todo false
+    const [load, setLoad] = useState(false);
     const [MessageBoxOpen, setMessageBoxOpen] = useState({
         isOpen: false, successful: true, text: '',
     });
     const [savedMoviesList, setSavedMoviesList] = useState([]);
-
-    //todo удалить путь.txt
-    //todo console.log удалять
 
     function onClickBurger() {
         setIsBurgerOpened(!isBurgerOpened);
@@ -53,7 +49,6 @@ export default function App() {
     }
 
     function handleRegister({name, email, password}) {
-        // setShowLoader(true);
         setLoad(false);
         mainApi
             .createUser(name, email, password)
@@ -66,11 +61,9 @@ export default function App() {
                 isOpen: true, successful: false, text: 'ошибка регистрации ' + err,
             }))
             .finally(() => setLoad(true));
-        // setShowLoader(false));
     }
 
     function handleLogin({email, password}) {
-        // setShowLoader(true);
         setLoad(false);
         mainApi
             .login(email, password)
@@ -89,7 +82,6 @@ export default function App() {
                 isOpen: true, successful: false, text: err,
             }))
             .finally(() => setLoad(true));
-        // setShowLoader(false));
     }
 
     function handleSignOut() {
@@ -108,7 +100,6 @@ export default function App() {
     }
 
     function handleProfile({name, email}) {
-        // setShowLoader(true);
         setLoad(false);
         mainApi
             .updateUser(name, email)
@@ -122,7 +113,6 @@ export default function App() {
                 isOpen: true, successful: false, text: err,
             }))
             .finally(() => setLoad(true));
-        // setShowLoader(false));
     }
 
 
@@ -136,17 +126,12 @@ export default function App() {
     }
 
     function handleDeleteMovie(movie) {
-        // console.log({movie})
         const savedMovie = savedMoviesList.find((item) => item._id === movie._id || item.movieId === movie.movieId);
-        // console.log({savedMovie})
         mainApi
             .deleteMovie(savedMovie._id)
             .then(() => {
-                // console.log('del success')
-                // console.log({movie})
-                // console.log({savedMoviesList})
+
                 const newMoviesList = savedMoviesList.filter(m => m._id !== savedMovie._id);
-                // console.log({newMoviesList})
                 setSavedMoviesList(newMoviesList);
             })
             .catch(err => setMessageBoxOpen({
@@ -156,20 +141,15 @@ export default function App() {
 
 // проверка токена и авторизация пользователя
     useEffect(() => {
-        // const path = location.pathname;
-        // setShowLoader(true);
         setLoad(false);
         mainApi.getUserInfo()
             .then(data => {
                 if (data) {
                     setLoggedIn(true);
                     setCurrentUser(data);
-                    // history.push(path);
                 }
             })
-
             .finally(() => {
-                // setShowLoader(false);
                 setLoad(true);
             });
     }, []);
@@ -216,46 +196,47 @@ export default function App() {
                     closeBurger={closeBurger}
                 />
             </Route>
-            {!load ? <Preloader/> : (<CurrentUserContext.Provider value={currentUser}>
-                <Switch>
-                    <Route exact path='/'>
-                        <Main/>
-                    </Route>
-                    <Route exact path='/signup'>
-                        {!loggedIn ? (<Register handleRegister={handleRegister}/>) : (<Redirect to='/'/>)}
-                    </Route>
-                    <Route exact path='/signin'>
-                        {!loggedIn ? (<Login handleLogin={handleLogin}/>) : (<Redirect to='/'/>)}
-                    </Route>
-                    <ProtectedRoute
-                        path='/movies'
-                        component={Movies}
-                        loggedIn={loggedIn}
-                        setMessageBox={setMessageBoxOpen}
-                        savedMoviesList={savedMoviesList}
-                        onLikeClick={handleSaveMovie}
-                        onDeleteClick={handleDeleteMovie}
-                    />
-                    <ProtectedRoute
-                        path='/saved-movies'
-                        component={SavedMovies}
-                        loggedIn={loggedIn}
-                        savedMoviesList={savedMoviesList}
-                        onDeleteClick={handleDeleteMovie}
-                        setMessageBox={setMessageBoxOpen}
-                    />
-                    <ProtectedRoute
-                        path='/profile'
-                        component={Profile}
-                        loggedIn={loggedIn}
-                        handleProfile={handleProfile}
-                        handleSignOut={handleSignOut}
-                    />
-                    <Route path='*'>
-                        <Page404/>
-                    </Route>
-                </Switch>
-            </CurrentUserContext.Provider>)}
+            {!load ? <Preloader/> : (
+                <CurrentUserContext.Provider value={currentUser}>
+                    <Switch>
+                        <Route exact path='/'>
+                            <Main/>
+                        </Route>
+                        <Route exact path='/signup'>
+                            {!loggedIn ? (<Register handleRegister={handleRegister}/>) : (<Redirect to='/'/>)}
+                        </Route>
+                        <Route exact path='/signin'>
+                            {!loggedIn ? (<Login handleLogin={handleLogin}/>) : (<Redirect to='/'/>)}
+                        </Route>
+                        <ProtectedRoute
+                            path='/movies'
+                            component={Movies}
+                            loggedIn={loggedIn}
+                            setMessageBox={setMessageBoxOpen}
+                            savedMoviesList={savedMoviesList}
+                            onLikeClick={handleSaveMovie}
+                            onDeleteClick={handleDeleteMovie}
+                        />
+                        <ProtectedRoute
+                            path='/saved-movies'
+                            component={SavedMovies}
+                            loggedIn={loggedIn}
+                            savedMoviesList={savedMoviesList}
+                            onDeleteClick={handleDeleteMovie}
+                            setMessageBox={setMessageBoxOpen}
+                        />
+                        <ProtectedRoute
+                            path='/profile'
+                            component={Profile}
+                            loggedIn={loggedIn}
+                            handleProfile={handleProfile}
+                            handleSignOut={handleSignOut}
+                        />
+                        <Route path='*'>
+                            <Page404/>
+                        </Route>
+                    </Switch>
+                </CurrentUserContext.Provider>)}
             <Route exact path={footerPaths}>
                 <Footer/>
             </Route>

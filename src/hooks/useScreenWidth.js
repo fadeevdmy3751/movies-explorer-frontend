@@ -1,30 +1,28 @@
-import { useEffect, useCallback, useState } from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 export default function useScreenWidth() {
-  const getScreenWidth = useCallback(() => window.innerWidth, []);
-  const [screenWidth, setScreenWidth] = useState(getScreenWidth());
+    const getScreenWidth = useCallback(() => window.innerWidth, []);
+    const [screenWidth, setScreenWidth] = useState(getScreenWidth());
 
-  useEffect(() => {
+    useEffect(() => {
+        function handleScreenResize() {
+            setScreenWidth(getScreenWidth());
+        }
 
-    function handleScreenResize() {
-      setScreenWidth(getScreenWidth());
-    }
+        window.addEventListener('resize', resizeController, false); // при монтировании ставим обработчик
+        let resizeTimer;
 
-    window.addEventListener('resize', resizeController, false); // при монтировании ставим обработчик
+        function resizeController() {
+            if (!resizeTimer) {
+                resizeTimer = setTimeout(() => {
+                    resizeTimer = null;
+                    handleScreenResize();
+                }, 1000); // 1 раз в секунду
+            }
+        }
 
-    let resizeTimer;
+        return () => window.removeEventListener('resize', handleScreenResize);  // убираем при размонтировании
+    }, [getScreenWidth]);
 
-    function resizeController() {
-      if (!resizeTimer) {
-        resizeTimer = setTimeout(() => {
-          resizeTimer = null;
-          handleScreenResize();
-        }, 1000); // 1 кадр в секунду
-      }
-    }
-
-    return () => window.removeEventListener('resize', handleScreenResize);  // убираем при размонтировании
-  }, [getScreenWidth]);
-
-  return screenWidth;
+    return screenWidth;
 }

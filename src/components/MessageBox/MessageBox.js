@@ -2,13 +2,11 @@ import './MessageBox.css';
 import useEscapePress from '../../hooks/useEscapePress';
 
 export default function MessageBox({onClose, status: {isOpen, successful, text}}) {
-    // console.log({isOpen, successful, text})//todo del
 
     function handleClickOverlay(e) {
         e.stopPropagation();
     }
 
-//todo оценить дизайн и может заменить вовсе
     useEscapePress(onClose, isOpen);
 
     return (

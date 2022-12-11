@@ -1,4 +1,3 @@
-// import './Login.css';
 import '../CommonForm/CommonForm.css';
 import {useEffect} from "react";
 import {Link} from "react-router-dom";
@@ -6,17 +5,17 @@ import logo from '../../images/logo.svg';
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 export default function Login({handleLogin}) {
-    const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
+    const {values, handleChange, resetForm, errors, isValid} = useFormWithValidation();
 
     function handleSubmit(e) {
         e.preventDefault()
         handleLogin(values)
     }
-    
+
     useEffect(() => {
         resetForm();
     }, [resetForm]);
-    
+
     return (<main className="commonForm">
         <form
             className="commonForm__form"
@@ -46,7 +45,7 @@ export default function Login({handleLogin}) {
                     <input
                         name="password"
                         className={`commonForm__input ${
-                          errors.password && 'commonForm__input_error'
+                            errors.password && 'commonForm__input_error'
                         }`}
                         onChange={handleChange}
                         value={values.password || ''}

@@ -1,7 +1,5 @@
 import './Preloader.css'
 
-//todo фон добавить?
-
 export default function Preloader() {
     return (
         <div className="preloader">

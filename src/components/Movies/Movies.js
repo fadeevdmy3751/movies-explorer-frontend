@@ -48,14 +48,11 @@ export default function Movies({
     function handleSearchSubmit(inputValue) {
         localStorage.setItem(`${currentUser.email} - movieSearch`, inputValue);
         localStorage.setItem(`${currentUser.email} - shortsOnly`, shortsOnly);
-        // console.log(localStorage.getItem('AllMovies'))
         if (!localStorage.getItem('AllMovies')) {   // correct
             setShowLoader(true);
             getAllMovies()
                 .then(movies => {
-                    console.log({movies}, 'in the THEN')
                     const simpedMovies = movies.map(simplifyMovie)
-                    console.log({simpedMovies}, 'in the THEN: will set AllMovies')
                     localStorage.setItem('AllMovies', JSON.stringify(simpedMovies))
                     handleSetFilteredMovies(
                         simpedMovies,
@@ -79,8 +76,6 @@ export default function Movies({
 
     // состояние чекбокса //вроде ок
     function handleShorts() {
-        console.log({queriedMovies})
-        console.log({filteredMovies})
         setShortsOnly(!shortsOnly);
         if (!shortsOnly) {
             setFilteredMovies(filterShorts(queriedMovies));
@@ -101,7 +96,6 @@ export default function Movies({
 
     // рендер фильмов из локального хранилища для первого раза //ок
     useEffect(() => {
-        console.log('рендер фильмов из локального хранилища')
         if (localStorage.getItem(`${currentUser.email} - movies`)) {
             const movies = JSON.parse(
                 localStorage.getItem(`${currentUser.email} - movies`)
@@ -116,7 +110,7 @@ export default function Movies({
             }
         }
     }, [currentUser]);
-    console.log('movies rendered')
+    // console.log('movies rendered')
     return (
         <main className="movies">
             <SearchForm

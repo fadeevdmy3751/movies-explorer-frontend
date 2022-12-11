@@ -13,14 +13,17 @@ export default function SearchForm({handleSearchSubmit, handleShorts, shortsOnly
 
     function handleSubmit(e) {
         e.preventDefault();
-        if (isValid) handleSearchSubmit(values.search)
+        if (errors.search === 'empty')  // чтоб сразу не было красного
+            setIsValid(e.target.checkValidity())
+        else if (isValid) handleSearchSubmit(values.search)
     }
 
     useEffect(() => {
         if (location.pathname === '/movies' && localStorage.getItem(`${currentUser.email} - movieSearch`)) {
             values.search = localStorage.getItem(`${currentUser.email} - movieSearch`);
-            setIsValid(true);
         }
+        setIsValid(true);
+        errors.search = 'empty'
     }, [currentUser]);
 
     return (

@@ -15,8 +15,7 @@ export default function MoviesCardList({moviesList, savedMoviesList, onLikeClick
 
     function getCardListParams(width) {
         for (let params of WIDTH_PARAMS) {
-            if (width >= params.width)
-                return params
+            if (width >= params.width) return params
         }
     }
 
@@ -24,7 +23,6 @@ export default function MoviesCardList({moviesList, savedMoviesList, onLikeClick
     useEffect(() => {
         if (location.pathname === '/movies') {
             let params = getCardListParams(screenWidth)
-            console.log({params, screenWidth})
             setCardsShowDetails(params);
             return () => setIsMount(false);
         }
@@ -33,13 +31,12 @@ export default function MoviesCardList({moviesList, savedMoviesList, onLikeClick
     // изменяем отображаемый массив фильмов в зависимости от ширины экрана
     useEffect(() => {
         if (moviesList.length) {
-            // const res = moviesList.filter((item, i) => i < cardsShowDetails.total);
             const res = moviesList.slice(0, cardsShowDetails.total)
             setShowMovieList(res);
         }
     }, [moviesList, cardsShowDetails]);
 
-    // добавление карточек при клике по кнопке "Еще"
+    // добавление карточек по кнопке "Еще"
     function handleClickMoreMovies() {
         const start = showMovieList.length;
         const end = start + cardsShowDetails.more
@@ -51,20 +48,16 @@ export default function MoviesCardList({moviesList, savedMoviesList, onLikeClick
         }
     }
 
-    console.log({showMovieList})
-    console.log('movies-card-list rendered')
-    return (
-        <section className="movies-card-list">
+    // console.log('movies-card-list rendered')
+    return (<section className="movies-card-list">
             <ul className="movies-card-list__list">
-                {showMovieList.map(movie => (
-                    <MoviesCard
+                {showMovieList.map(movie => (<MoviesCard
                         key={location.pathname === '/movies' ? movie.movieId : movie._id}
                         saved={getSavedMovieCard(savedMoviesList, movie)}
                         onLikeClick={onLikeClick}
                         onDeleteClick={onDeleteClick}
                         movie={movie}
-                    />
-                ))}
+                    />))}
             </ul>
             {location.pathname === '/movies' && showMovieList.length >= 5 && showMovieList.length < moviesList.length && (
                 <button
@@ -72,8 +65,6 @@ export default function MoviesCardList({moviesList, savedMoviesList, onLikeClick
                     onClick={handleClickMoreMovies}
                 >
                     Ещё
-                </button>
-            )}
-        </section>
-    );
+                </button>)}
+        </section>);
 }

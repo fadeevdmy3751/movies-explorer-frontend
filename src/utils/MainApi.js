@@ -3,7 +3,6 @@ const MainApiUrl = "https://api.fadeeploma.nomoredomains.club/api"
 // класс для взаимодействия с сервером
 class Api {
     apiConfig = {
-        // baseUrl: MainApiUrl,
         headers: {
             credentials: 'include',
             'Content-Type': 'application/json'
@@ -16,12 +15,11 @@ class Api {
     }
 
     _checkResponse(res, errorMes) {
-        // console.log(res, errorMes)
         if (res.ok) {
             return res.json();
         }
         // если ошибка, отклоняем промис
-        return Promise.reject(`${errorMes + res.status}`);
+        return Promise.reject(errorMes);
     }
 
     _makeFetch(fetchResource, requestMethod, errorMes, requestBody = undefined) {
@@ -40,14 +38,6 @@ class Api {
             .then(res => this._checkResponse(res, errorMes))
     }
 
-    // todo rewrite all as in Mesto
-
-    // проверка статуса запроса
-    // async _requestResult(res) {
-    //     const result = await res.json();
-    //     return res.ok ? result : Promise.reject(result.message);
-    // }
-
     // регистрация
     createUser(name, email, password) {
         return this._makeFetch(`${this._baseUrl}/signup`,
@@ -58,35 +48,31 @@ class Api {
                 email,
                 password,
             })
-        //.then(res => this._requestResult(res));
     }
 
     // вход
     login(email, password) {
         return this._makeFetch(`${this._baseUrl}/signin`,
             'POST',
-            'ошибка входа',
+            'Неверное имя пользователя или пароль',
             {email, password}
         )
-        //.then(res => this._requestResult(res));
     }
 
+    //выход
     logout() {
         return this._makeFetch(`${this._baseUrl}/logout`,
             'POST',
             'ошибка выхода'
         )
-        // .then(res => res.json())
     }
 
-// todo везде авторизацию на переделать
     // запрос данных пользователя
     getUserInfo() {
         return this._makeFetch(`${this._baseUrl}/users/me`,
             'GET',
             'Ошибка getUserInfo'
         )
-        //  .then(res => this._requestResult(res));
     }
 
     // запрос на редактирование данных пользователя
@@ -96,7 +82,6 @@ class Api {
             'ошибка обновления пользователя',
             {name, email}
         )
-        // .then(res => this._requestResult(res));
     }
 
     // запрос фильмов
@@ -105,18 +90,15 @@ class Api {
             'GET',
             'ошибка getSavedMovies'
         )
-        // .then(res => this._requestResult(res));
     }
 
     // сохранение фильма
     addNewMovie(data) {
-        console.log(data)
         return this._makeFetch(`${this._baseUrl}/movies`,
             'POST',
             'ошибка сохранения фильма',
             data
         )
-        // .then(res => this._requestResult(res));
     }
 
     // удаление фильма из сохранённых
@@ -125,11 +107,9 @@ class Api {
             'DELETE',
             'ошибка удаление фильма из сохранённых'
         )
-        // .then(res => this._requestResult(res));
     }
 }
 
-// создаём экземляр класса работающего с API сервера
 const mainApi = new Api(MainApiUrl);
 
 export default mainApi;

@@ -5,7 +5,6 @@ const WIDTH_PARAMS = [
         total: 12,
         more: 4
     },
-    // todo actualize width
     {
         width: 910,
         total: 12,
