@@ -23,5 +23,8 @@ const WIDTH_PARAMS = [
     },
 ]
 
+const searchError = 'Нужно ввести ключевое слово.'
+const emailError = 'Некорректый адрес почты.'
+const nameError = 'Имя должно содержать только латиницу, кириллицу, пробел или дефис.'
 
-export {SHORTS_DUR, WIDTH_PARAMS}
+export {SHORTS_DUR, WIDTH_PARAMS, searchError, emailError, nameError}

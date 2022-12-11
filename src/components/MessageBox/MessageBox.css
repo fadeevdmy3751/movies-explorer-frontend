@@ -1,4 +1,4 @@
-.info-tooltip {
+.message-box {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -13,15 +13,15 @@
     z-index: 100;
 }
 
-.info-tooltip_opened {
+.message-box_opened {
     visibility: visible;
     opacity: 1;
 }
 
-.info-tooltip__container {
+.message-box__container {
     width: 100%;
     max-width: 430px;
-    background-color: var(--blue-accent-color);
+    background-color: var(--green-accent-color);
     border-radius: 10px;
     position: relative;
     padding: 34px 36px 37px;
@@ -30,21 +30,21 @@
     cursor: default;
 }
 
-.info-tooltip__status {
+.message-box__status {
     width: 120px;
     height: 120px;
     margin: 26px auto 32px;
 }
 
-.info-tooltip__status_fail {
+.message-box__status_fail {
     background-image: url(../../images/fail.svg);
 }
 
-.info-tooltip__status_success {
+.message-box__status_success {
     background-image: url(../../images/success.svg);
 }
 
-.info-tooltip__title {
+.message-box__title {
     margin: 0 0 24px;
     font-size: 24px;
     font-weight: 900;
@@ -53,7 +53,7 @@
     text-align: center;
 }
 
-.info-tooltip__close-button {
+.message-box__close-button {
     position: absolute;
     top: -40px;
     right: -40px;
@@ -70,28 +70,28 @@
     transition: all .3s ease;
 }
 
-.info-tooltip__close-button:hover {
+.message-box__close-button:hover {
     opacity: .8;
     cursor: pointer;
 }
 
 @media screen and (max-width: 500px) {
-    .info-tooltip__container {
+    .message-box__container {
         max-width: 282px;
         padding: 25px 22px;
     }
 
-    .info-tooltip__status {
+    .message-box__status {
         margin: 25px auto 40px;
     }
 
-    .info-tooltip__title {
+    .message-box__title {
         font-size: 20px;
         line-height: 24px;
         margin-bottom: 25px;
     }
 
-    .info-tooltip__close-button {
+    .message-box__close-button {
         width: 20px;
         height: 20px;
         top: -38px;

@@ -5,10 +5,10 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import getAllMovies from "../../utils/MoviesApi";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import Preloader from "../Preloader/Preloader";
 
 export default function Movies({
-                                   setShowLoader,
-                                   setInfoTooltip,
+                                   setMessageBox,
                                    savedMoviesList,
                                    onLikeClick,
                                    onDeleteClick
@@ -19,13 +19,13 @@ export default function Movies({
     const [queriedMovies, setQueriedMovies] = useState([]); // фильмы по запросу
     const [filteredMovies, setFilteredMovies] = useState([]); // отфильтрованные по чекбоксу и запросу фильмы
     const [NotFound, setNotFound] = useState(false); // если по запросу ничего не найдено - скроем фильмы
-    // const [AllMovies, setAllMovies] = useState([]); // все фильмы от сервера, для единоразового обращения к нему
+    const [showLoader, setShowLoader] = useState(false)
 
     // поиск по массиву и установка состояния
     function handleSetFilteredMovies(movies, userQuery, shortsOnlyCheckbox) {
         const moviesList = filterMovies(movies, userQuery, false);
         if (moviesList.length === 0) {
-            setInfoTooltip({
+            setMessageBox({
                 isOpen: true,
                 successful: false,
                 text: 'Ничего не найдено.',
@@ -48,8 +48,7 @@ export default function Movies({
     function handleSearchSubmit(inputValue) {
         localStorage.setItem(`${currentUser.email} - movieSearch`, inputValue);
         localStorage.setItem(`${currentUser.email} - shortsOnly`, shortsOnly);
-        console.log(localStorage.getItem('AllMovies'))
-        // if (AllMovies.length === 0) {
+        // console.log(localStorage.getItem('AllMovies'))
         if (!localStorage.getItem('AllMovies')) {   // correct
             setShowLoader(true);
             getAllMovies()
@@ -57,7 +56,6 @@ export default function Movies({
                     console.log({movies}, 'in the THEN')
                     const simpedMovies = movies.map(simplifyMovie)
                     console.log({simpedMovies}, 'in the THEN: will set AllMovies')
-                    // setAllMovies([...simpedMovies]);
                     localStorage.setItem('AllMovies', JSON.stringify(simpedMovies))
                     handleSetFilteredMovies(
                         simpedMovies,
@@ -66,7 +64,7 @@ export default function Movies({
                     );
                 })
                 .catch((error) =>
-                    setInfoTooltip({
+                    setMessageBox({
                         isOpen: true,
                         successful: false,
                         text: error + 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
@@ -126,6 +124,7 @@ export default function Movies({
                 handleShorts={handleShorts}
                 shortsOnly={shortsOnly}
             />
+            {showLoader ? <Preloader/> : null}
             {!NotFound && (
                 <MoviesCardList
                     moviesList={filteredMovies}

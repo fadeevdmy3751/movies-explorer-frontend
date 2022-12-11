@@ -1,7 +1,7 @@
-import './Hamburger.css';
+import './Burger.css';
 import {useEffect} from 'react';
 
-export default function Hamburger({isBurgerOpened, onClickBurger}) {
+export default function Burger({isBurgerOpened, onClickBurger}) {
     // определяем ширину экрана, для правильной логики работы классов и отображения меню
     const isMobile = document.documentElement.clientWidth < 800
 
@@ -18,7 +18,7 @@ export default function Hamburger({isBurgerOpened, onClickBurger}) {
     return (
         <button
             type="button"
-            className={`hamburger-button hamburger-button_${
+            className={`burger-button burger-button_${
                 isBurgerOpened ? 'on' : 'off'
             }`}
             onClick={handleOnClickBurger}

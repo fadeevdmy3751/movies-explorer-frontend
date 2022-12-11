@@ -1,7 +1,7 @@
-import './InfoTooltip.css';
+import './MessageBox.css';
 import useEscapePress from '../../hooks/useEscapePress';
 
-export default function InfoTooltip({onClose, status: {isOpen, successful, text}}) {
+export default function MessageBox({onClose, status: {isOpen, successful, text}}) {
     // console.log({isOpen, successful, text})//todo del
 
     function handleClickOverlay(e) {
@@ -13,21 +13,21 @@ export default function InfoTooltip({onClose, status: {isOpen, successful, text}
 
     return (
         <div
-            className={`info-tooltip ${isOpen && 'info-tooltip_opened'}`}
+            className={`message-box ${isOpen && 'message-box_opened'}`}
             onClick={onClose}
         >
-            <div className="info-tooltip__container" onClick={handleClickOverlay}>
+            <div className="message-box__container" onClick={handleClickOverlay}>
                 <div
-                    className={`info-tooltip__status ${
+                    className={`message-box__status ${
                         successful
-                            ? 'info-tooltip__status_success'
-                            : 'info-tooltip__status_fail'
+                            ? 'message-box__status_success'
+                            : 'message-box__status_fail'
                     }`}
                 />
-                <h2 className="info-tooltip__title">{text}</h2>
+                <h2 className="message-box__title">{text}</h2>
                 <button
                     type="button"
-                    className="info-tooltip__close-button"
+                    className="message-box__close-button"
                     onClick={onClose}
                 />
             </div>

@@ -7,7 +7,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 
 export default function SavedMovies({
-                                        setInfoTooltip,
+                                        setMessageBox,
                                         savedMoviesList,
                                         onDeleteClick
                                     }) {
@@ -23,7 +23,7 @@ export default function SavedMovies({
         const moviesList = filterMovies(savedMoviesList, inputValue, shortsOnly);
         if (moviesList.length === 0) {
             setNotFound(true);
-            setInfoTooltip({
+            setMessageBox({
                 isOpen: true,
                 successful: false,
                 text: 'Ничего не найдено.',

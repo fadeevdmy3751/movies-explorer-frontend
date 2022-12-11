@@ -1,6 +1,6 @@
 import './Navigation.css';
 import {Link, NavLink} from "react-router-dom";
-import Hamburger from "../Hamburger/Hamburger";
+import Burger from "../Burger/Burger";
 import profile_pic from "../../images/profile.svg"
 
 export default function Navigation({loggedIn, isBurgerOpened, onClickBurger, closeBurger}) {
@@ -31,7 +31,7 @@ export default function Navigation({loggedIn, isBurgerOpened, onClickBurger, clo
             ) : (
                 <nav className={`navigation navigation_state_${isBurgerOpened ? 'opened' : 'closed'}`}
                      onClick={isBurgerOpened ? onClickBurger : undefined}>
-                    <Hamburger isBurgerOpened={isBurgerOpened} onClickBurger={onClickBurger}/>
+                    <Burger isBurgerOpened={isBurgerOpened} onClickBurger={onClickBurger}/>
                     <ul className={`navigation__list navigation__list_logged navigation__list_state_${isBurgerOpened ? 'opened' : 'closed'}`}
                         onClick={handleClickOverlay}>
                         {isBurgerOpened && (

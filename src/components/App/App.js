@@ -15,7 +15,7 @@ import useEscapePress from "../../hooks/useEscapePress";
 import mainApi from "../../utils/MainApi";
 import Preloader from "../Preloader/Preloader";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import MessageBox from "../MessageBox/MessageBox";
 import SavedMovies from "../SavedMovies/SavedMovies";
 
 
@@ -30,25 +30,22 @@ export default function App() {
     const [isBurgerOpened, setIsBurgerOpened] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [load, setLoad] = useState(false); //todo false
-    const [showLoader, setShowLoader] = useState(false)
-    const [TooltipOpen, setTooltipOpen] = useState({
-        isOpen: false,
-        successful: true,
-        text: '',
+    const [MessageBoxOpen, setMessageBoxOpen] = useState({
+        isOpen: false, successful: true, text: '',
     });
     const [savedMoviesList, setSavedMoviesList] = useState([]);
 
     //todo удалить путь.txt
     //todo console.log удалять
-    
+
     function onClickBurger() {
         setIsBurgerOpened(!isBurgerOpened);
     }
 
     useEscapePress(onClickBurger, isBurgerOpened);
 
-    function closeInfoTooltip() {
-        setTooltipOpen({...TooltipOpen, isOpen: false});
+    function closeMessageBox() {
+        setMessageBoxOpen({...MessageBoxOpen, isOpen: false});
     }
 
     function closeBurger() {
@@ -56,7 +53,8 @@ export default function App() {
     }
 
     function handleRegister({name, email, password}) {
-        setShowLoader(true);
+        // setShowLoader(true);
+        setLoad(false);
         mainApi
             .createUser(name, email, password)
             .then(data => {
@@ -64,18 +62,16 @@ export default function App() {
                     handleLogin({email, password});
                 }
             })
-            .catch(err =>
-                setTooltipOpen({
-                    isOpen: true,
-                    successful: false,
-                    text: 'ошибка регистрации ' + err,
-                })
-            )
-            .finally(() => setShowLoader(false));
+            .catch(err => setMessageBoxOpen({
+                isOpen: true, successful: false, text: 'ошибка регистрации ' + err,
+            }))
+            .finally(() => setLoad(true));
+        // setShowLoader(false));
     }
 
     function handleLogin({email, password}) {
-        setShowLoader(true);
+        // setShowLoader(true);
+        setLoad(false);
         mainApi
             .login(email, password)
             .then((data) => {
@@ -84,21 +80,16 @@ export default function App() {
                 } else {
                     setLoggedIn(true);
                     history.push('/movies');
-                    setTooltipOpen({
-                        isOpen: true,
-                        successful: true,
-                        text: 'Добро пожаловать!',
+                    setMessageBoxOpen({
+                        isOpen: true, successful: true, text: 'Добро пожаловать!',
                     });
                 }
             })
-            .catch(err =>
-                setTooltipOpen({
-                    isOpen: true,
-                    successful: false,
-                    text: err,
-                })
-            )
-            .finally(() => setShowLoader(false));
+            .catch(err => setMessageBoxOpen({
+                isOpen: true, successful: false, text: err,
+            }))
+            .finally(() => setLoad(true));
+        // setShowLoader(false));
     }
 
     function handleSignOut() {
@@ -106,43 +97,32 @@ export default function App() {
         setLoggedIn(false);
         localStorage.clear();
         mainApi.logout().then((data) => {
-                setTooltipOpen({
-                    isOpen: true,
-                    successful: true,
-                    text: 'Успешно разлогинен!',
-                })
-                history.push('/')
-            }
-        )
-            .catch(err =>
-                setTooltipOpen({
-                    isOpen: true,
-                    successful: false,
-                    text: err,
-                })
-            )
+            setMessageBoxOpen({
+                isOpen: true, successful: true, text: 'Успешно разлогинен!',
+            })
+            history.push('/')
+        })
+            .catch(err => setMessageBoxOpen({
+                isOpen: true, successful: false, text: err,
+            }))
     }
 
     function handleProfile({name, email}) {
-        setShowLoader(true);
+        // setShowLoader(true);
+        setLoad(false);
         mainApi
             .updateUser(name, email)
             .then(newUserData => {
                 setCurrentUser(newUserData);
-                setTooltipOpen({
-                    isOpen: true,
-                    successful: true,
-                    text: 'Ваши данные обновлены!',
+                setMessageBoxOpen({
+                    isOpen: true, successful: true, text: 'Ваши данные обновлены!',
                 });
             })
-            .catch(err =>
-                setTooltipOpen({
-                    isOpen: true,
-                    successful: false,
-                    text: err,
-                })
-            )
-            .finally(() => setShowLoader(false));
+            .catch(err => setMessageBoxOpen({
+                isOpen: true, successful: false, text: err,
+            }))
+            .finally(() => setLoad(true));
+        // setShowLoader(false));
     }
 
 
@@ -150,20 +130,14 @@ export default function App() {
         mainApi
             .addNewMovie(movie)
             .then(newMovie => setSavedMoviesList([newMovie, ...savedMoviesList]))
-            .catch(err =>
-                setTooltipOpen({
-                    isOpen: true,
-                    successful: false,
-                    text: err,
-                })
-            );
+            .catch(err => setMessageBoxOpen({
+                isOpen: true, successful: false, text: err,
+            }));
     }
 
     function handleDeleteMovie(movie) {
         // console.log({movie})
-        const savedMovie = savedMoviesList.find(
-            (item) => item._id === movie._id || item.movieId === movie.movieId
-        );
+        const savedMovie = savedMoviesList.find((item) => item._id === movie._id || item.movieId === movie.movieId);
         // console.log({savedMovie})
         mainApi
             .deleteMovie(savedMovie._id)
@@ -175,19 +149,16 @@ export default function App() {
                 // console.log({newMoviesList})
                 setSavedMoviesList(newMoviesList);
             })
-            .catch(err =>
-                setTooltipOpen({
-                    isOpen: true,
-                    successful: false,
-                    text: err,
-                })
-            );
+            .catch(err => setMessageBoxOpen({
+                isOpen: true, successful: false, text: err,
+            }));
     }
 
 // проверка токена и авторизация пользователя
     useEffect(() => {
         // const path = location.pathname;
-        setShowLoader(true);
+        // setShowLoader(true);
+        setLoad(false);
         mainApi.getUserInfo()
             .then(data => {
                 if (data) {
@@ -196,15 +167,9 @@ export default function App() {
                     // history.push(path);
                 }
             })
-            // .catch(err =>
-            //     setTooltipOpen({
-            //         isOpen: true,
-            //         successful: false,
-            //         text: err,
-            //     })
-            // )
+
             .finally(() => {
-                setShowLoader(false);
+                // setShowLoader(false);
                 setLoad(true);
             });
     }, []);
@@ -214,14 +179,11 @@ export default function App() {
         if (loggedIn) {
             mainApi.getUserInfo()
                 .then(me => setCurrentUser(me))
-                .catch((err) =>
-                    setTooltipOpen({
-                        isOpen: true,
-                        successful: false,
-                        text: err,
-                    })
-                )
-                .finally(() => setShowLoader(false));
+                .catch((err) => setMessageBoxOpen({
+                    isOpen: true, successful: false, text: err,
+                }))
+                .finally(() => setLoad(true));
+            // setShowLoader(false));
         } else {
             setCurrentUser({})
         }
@@ -236,92 +198,71 @@ export default function App() {
                     setSavedMoviesList(UserMoviesList);
                 })
                 .catch(err => {
-                        console.log(err)
-                        setTooltipOpen({
-                            isOpen: true,
-                            successful: false,
-                            text: err,
-                        })
-                    }
-                );
+                    console.log(err)
+                    setMessageBoxOpen({
+                        isOpen: true, successful: false, text: err,
+                    })
+                });
         }
     }, [currentUser, loggedIn]);
 
     return (
         <div className="app">
-            {!load ? (
-                <Preloader isOpen={showLoader}/>
-            ) : (
-                <CurrentUserContext.Provider value={currentUser}>
-                    <Route exact path={headerPaths}>
-                        <Header
-                            loggedIn={loggedIn}
-                            onClickBurger={onClickBurger}
-                            isBurgerOpened={isBurgerOpened}
-                            closeBurger={closeBurger}
-                        />
+            <Route exact path={headerPaths}>
+                <Header
+                    loggedIn={loggedIn}
+                    onClickBurger={onClickBurger}
+                    isBurgerOpened={isBurgerOpened}
+                    closeBurger={closeBurger}
+                />
+            </Route>
+            {!load ? <Preloader/> : (<CurrentUserContext.Provider value={currentUser}>
+                <Switch>
+                    <Route exact path='/'>
+                        <Main/>
                     </Route>
-                    <Switch>
-                        <Route exact path='/'>
-                            <Main/>
-                        </Route>
-                        <Route exact path='/signup'>
-                            {!loggedIn ? (
-                                <Register handleRegister={handleRegister}/>
-                            ) : (
-                                <Redirect to='/'/>
-                            )}
-                        </Route>
-                        <Route exact path='/signin'>
-                            {!loggedIn ? (
-                                <Login handleLogin={handleLogin}/>
-                            ) : (
-                                <Redirect to='/'/>
-                            )}
-                        </Route>
-                        {/*<Route exact path={["/movies", "/saved-movies"]}>*/}
-                        {/*    <Movies/>*/}
-                        {/*</Route>*/}
-                        <ProtectedRoute
-                            path='/movies'
-                            component={Movies}
-                            loggedIn={loggedIn}
-                            setShowLoader={setShowLoader}
-                            setInfoTooltip={setTooltipOpen}
-                            savedMoviesList={savedMoviesList}
-                            onLikeClick={handleSaveMovie}
-                            onDeleteClick={handleDeleteMovie}
-                        />
-                        <ProtectedRoute
-                            path='/saved-movies'
-                            component={SavedMovies}
-                            loggedIn={loggedIn}
-                            setShowLoader={setShowLoader}
-                            savedMoviesList={savedMoviesList}
-                            onDeleteClick={handleDeleteMovie}
-                            setInfoTooltip={setTooltipOpen}
-                        />
-                        <ProtectedRoute
-                            path='/profile'
-                            component={Profile}
-                            loggedIn={loggedIn}
-                            handleProfile={handleProfile}
-                            handleSignOut={handleSignOut}
-                        />
-                        <Route path='*'>
-                            <Page404/>
-                        </Route>
-                    </Switch>
-                    <Route exact path={footerPaths}>
-                        <Footer/>
+                    <Route exact path='/signup'>
+                        {!loggedIn ? (<Register handleRegister={handleRegister}/>) : (<Redirect to='/'/>)}
                     </Route>
-                    {showLoader ? <Preloader/> : null}
-                    <InfoTooltip
-                        status={TooltipOpen}
-                        onClose={closeInfoTooltip}
+                    <Route exact path='/signin'>
+                        {!loggedIn ? (<Login handleLogin={handleLogin}/>) : (<Redirect to='/'/>)}
+                    </Route>
+                    <ProtectedRoute
+                        path='/movies'
+                        component={Movies}
+                        loggedIn={loggedIn}
+                        setMessageBox={setMessageBoxOpen}
+                        savedMoviesList={savedMoviesList}
+                        onLikeClick={handleSaveMovie}
+                        onDeleteClick={handleDeleteMovie}
                     />
-                </CurrentUserContext.Provider>
-            )}
+                    <ProtectedRoute
+                        path='/saved-movies'
+                        component={SavedMovies}
+                        loggedIn={loggedIn}
+                        savedMoviesList={savedMoviesList}
+                        onDeleteClick={handleDeleteMovie}
+                        setMessageBox={setMessageBoxOpen}
+                    />
+                    <ProtectedRoute
+                        path='/profile'
+                        component={Profile}
+                        loggedIn={loggedIn}
+                        handleProfile={handleProfile}
+                        handleSignOut={handleSignOut}
+                    />
+                    <Route path='*'>
+                        <Page404/>
+                    </Route>
+                </Switch>
+            </CurrentUserContext.Provider>)}
+            <Route exact path={footerPaths}>
+                <Footer/>
+            </Route>
+            <MessageBox
+                status={MessageBoxOpen}
+                onClose={closeMessageBox}
+            />
         </div>
     )
 }

@@ -2,16 +2,12 @@ import './Preloader.css'
 
 //todo фон добавить?
 
-export default function Preloader({ isOpen }) {
-  return (
-    <>
-      {isOpen && (
+export default function Preloader() {
+    return (
         <div className="preloader">
-          <div className="preloader__container">
-            <span className="preloader__round"/>
-          </div>
+            <div className="preloader__container">
+                <span className="preloader__round"/>
+            </div>
         </div>
-      )}
-    </>
-  );
+    );
 }
