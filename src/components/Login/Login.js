@@ -1,15 +1,24 @@
 import '../CommonForm/CommonForm.css';
-import {useEffect} from "react";
 import {Link} from "react-router-dom";
 import logo from '../../images/logo.svg';
 import useFormWithValidation from "../../hooks/useFormWithValidation";
+import {useEffect, useRef} from "react";
 
 export default function Login({handleLogin}) {
     const {values, handleChange, resetForm, errors, isValid} = useFormWithValidation();
+    const emailInput = useRef();
+    const passwordInput = useRef();
+    const submitButton = useRef();
 
     function handleSubmit(e) {
         e.preventDefault()
+        emailInput.current.disabled = true;
+        passwordInput.current.disabled = true;
+        submitButton.current.disabled = true;
         handleLogin(values)
+        emailInput.current.disabled = false;
+        passwordInput.current.disabled = false;
+        submitButton.current.disabled = false;
     }
 
     useEffect(() => {
@@ -36,6 +45,7 @@ export default function Login({handleLogin}) {
                         onChange={handleChange}
                         value={values.email || ''}
                         type="email"
+                        ref={emailInput}
                         required
                     />
                     <span className="commonForm__error">{errors.email || ''}</span>
@@ -50,6 +60,7 @@ export default function Login({handleLogin}) {
                         onChange={handleChange}
                         value={values.password || ''}
                         type="password"
+                        ref={passwordInput}
                         required
                     />
                     <span className="commonForm__error">{errors.password || ''}</span>
@@ -58,6 +69,7 @@ export default function Login({handleLogin}) {
             <button
                 type="submit"
                 className={`commonForm__button ${!isValid && 'commonForm__button_disabled'}`}
+                ref={submitButton}
                 disabled={!isValid}
             >
                 Войти

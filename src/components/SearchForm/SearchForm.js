@@ -1,21 +1,29 @@
 import './SearchForm.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import {useLocation} from "react-router-dom";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useRef} from "react";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import {searchError} from "../../utils/constants";
+
 
 export default function SearchForm({handleSearchSubmit, handleShorts, shortsOnly}) {
     const currentUser = useContext(CurrentUserContext);
     const location = useLocation();
     const {errors, values, handleChange, isValid, setIsValid} = useFormWithValidation();
 
+    const searchInput = useRef();
+    const submitButton = useRef();
+
     function handleSubmit(e) {
         e.preventDefault();
+        searchInput.current.disabled = true;
+        submitButton.current.disabled = true;
         if (errors.search === 'empty')  // чтоб сразу не было красного
             setIsValid(e.target.checkValidity())
         else if (isValid) handleSearchSubmit(values.search)
+        searchInput.current.disabled = false;
+        submitButton.current.disabled = false;
     }
 
     useEffect(() => {
@@ -37,10 +45,11 @@ export default function SearchForm({handleSearchSubmit, handleShorts, shortsOnly
                     autoComplete="off"
                     value={values.search || ''}
                     onChange={handleChange}
+                    ref={searchInput}
                     required
                 />
                 {!isValid && <span className="search__error">{searchError}</span>}
-                <button className="search__button" type="submit"/>
+                <button className="search__button" type="submit" ref={submitButton}/>
             </form>
             <FilterCheckbox state={shortsOnly} handleShorts={handleShorts}/>
         </section>

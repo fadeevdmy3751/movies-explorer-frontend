@@ -1,5 +1,5 @@
 import './Profile.css';
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useRef} from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import useFormWithValidation from '../../hooks/useFormWithValidation';
 
@@ -7,9 +7,19 @@ export default function Profile({handleSignOut, handleProfile}) {
     const {values, handleChange, resetForm, errors, isValid} = useFormWithValidation();
     const currentUser = useContext(CurrentUserContext);
 
+    const emailInput = useRef();
+    const nameInput = useRef();
+    const submitButton = useRef();
+
     function handleSubmit(e) {
         e.preventDefault();
+        emailInput.current.disabled = true;
+        nameInput.current.disabled = true;
+        submitButton.current.disabled = true;
         handleProfile(values);
+        emailInput.current.disabled = false;
+        nameInput.current.disabled = false;
+        submitButton.current.disabled = false;
     }
 
     useEffect(() => {
@@ -18,7 +28,7 @@ export default function Profile({handleSignOut, handleProfile}) {
         }
     }, [currentUser, resetForm]);
 
-    const noSubmit = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
+    const onSubmit = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
 
     return (
         <main className="profile">
@@ -33,6 +43,7 @@ export default function Profile({handleSignOut, handleProfile}) {
                             onChange={handleChange}
                             value={values.name || ''}
                             type="text"
+                            ref={nameInput}
                             required
                             minLength="2"
                             maxLength="30"
@@ -48,6 +59,7 @@ export default function Profile({handleSignOut, handleProfile}) {
                             onChange={handleChange}
                             value={values.email || ''}
                             type="email"
+                            ref={emailInput}
                             required
                         />
                         <span className="profile__error">{errors.email || ''}</span>
@@ -56,8 +68,9 @@ export default function Profile({handleSignOut, handleProfile}) {
                 <div className="profile__button-container">
                     <button
                         type="submit"
-                        className={`profile__button-edit ${noSubmit ? 'profile__button-edit_disabled' : ''}`}
-                        disabled={noSubmit}
+                        className={`profile__button-edit ${onSubmit ? 'profile__button-edit_disabled' : ''}`}
+                        disabled={onSubmit}
+                        ref={submitButton}
                     >
                         Редактировать
                     </button>

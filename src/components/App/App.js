@@ -215,47 +215,47 @@ export default function App() {
                     closeBurger={closeBurger}
                 />
             </Route>
-            {!load ? <Preloader/> : (
-                <CurrentUserContext.Provider value={currentUser}>
-                    <Switch>
-                        <Route exact path='/'>
-                            <Main/>
-                        </Route>
-                        <Route exact path='/signup'>
-                            {!loggedIn ? (<Register handleRegister={handleRegister}/>) : (<Redirect to='/'/>)}
-                        </Route>
-                        <Route exact path='/signin'>
-                            {!loggedIn ? (<Login handleLogin={handleLogin}/>) : (<Redirect to='/'/>)}
-                        </Route>
-                        <ProtectedRoute
-                            path='/movies'
-                            component={Movies}
-                            loggedIn={loggedIn}
-                            setMessageBox={setMessageBoxOpen}
-                            savedMoviesList={savedMoviesList}
-                            onLikeClick={handleSaveMovie}
-                            onDeleteClick={handleDeleteMovie}
-                        />
-                        <ProtectedRoute
-                            path='/saved-movies'
-                            component={SavedMovies}
-                            loggedIn={loggedIn}
-                            savedMoviesList={savedMoviesList}
-                            onDeleteClick={handleDeleteMovie}
-                            setMessageBox={setMessageBoxOpen}
-                        />
-                        <ProtectedRoute
-                            path='/profile'
-                            component={Profile}
-                            loggedIn={loggedIn}
-                            handleProfile={handleProfile}
-                            handleSignOut={handleSignOut}
-                        />
-                        <Route path='*'>
-                            <Page404/>
-                        </Route>
-                    </Switch>
-                </CurrentUserContext.Provider>)}
+            {!load ? <Preloader/> : null}
+            <CurrentUserContext.Provider value={currentUser}>
+                <Switch>
+                    <Route exact path='/'>
+                        <Main/>
+                    </Route>
+                    <Route exact path='/signup'>
+                        {!loggedIn ? (<Register handleRegister={handleRegister}/>) : (<Redirect to='/'/>)}
+                    </Route>
+                    <Route exact path='/signin'>
+                        {!loggedIn ? (<Login handleLogin={handleLogin}/>) : (<Redirect to='/'/>)}
+                    </Route>
+                    <ProtectedRoute
+                        path='/movies'
+                        component={Movies}
+                        loggedIn={loggedIn}
+                        setMessageBox={setMessageBoxOpen}
+                        savedMoviesList={savedMoviesList}
+                        onLikeClick={handleSaveMovie}
+                        onDeleteClick={handleDeleteMovie}
+                    />
+                    <ProtectedRoute
+                        path='/saved-movies'
+                        component={SavedMovies}
+                        loggedIn={loggedIn}
+                        savedMoviesList={savedMoviesList}
+                        onDeleteClick={handleDeleteMovie}
+                        setMessageBox={setMessageBoxOpen}
+                    />
+                    <ProtectedRoute
+                        path='/profile'
+                        component={Profile}
+                        loggedIn={loggedIn}
+                        handleProfile={handleProfile}
+                        handleSignOut={handleSignOut}
+                    />
+                    <Route path='*'>
+                        <Page404/>
+                    </Route>
+                </Switch>
+            </CurrentUserContext.Provider>
             <Route exact path={footerPaths}>
                 <Footer/>
             </Route>
