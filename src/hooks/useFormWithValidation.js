@@ -2,6 +2,8 @@ import {useCallback, useState} from 'react';
 import isEmail from 'validator/es/lib/isEmail';
 import {emailError, nameError, searchError} from "../utils/constants";
 
+const Joi = require('joi');
+
 export default function useFormWithValidation() {
     const [values, setValues] = useState({});
     const [errors, setErrors] = useState({});
@@ -12,24 +14,28 @@ export default function useFormWithValidation() {
         const name = target.name;
         const value = target.value;
 
-        if (name === 'name' && target.validity.patternMismatch) {
-            target.setCustomValidity(nameError)
-        } else {
-            target.setCustomValidity('');
+        if (name === 'name'){
+            if(target.validity.patternMismatch) {
+                target.setCustomValidity(nameError)
+            } else {
+                target.setCustomValidity('');
+            }
         }
 
         if (name === 'email') {
-            if (!isEmail(value)) {
+            if (!isEmail(value) || Joi.string().required().email({ tlds: { allow: false } }).validate(value).error) {
                 target.setCustomValidity(emailError);
             } else {
                 target.setCustomValidity('');
             }
         }
 
-        if (name === 'search' && target.validity.valueMissing) {
-            target.setCustomValidity(searchError)
-        } else {
-            target.setCustomValidity('');
+        if (name === 'search'){
+            if(target.validity.valueMissing) {
+                target.setCustomValidity(searchError)
+            } else {
+                target.setCustomValidity('');
+            }
         }
 
         setValues({...values, [name]: value});

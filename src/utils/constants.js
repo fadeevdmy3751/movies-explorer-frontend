@@ -26,4 +26,6 @@ const searchError = 'Нужно ввести ключевое слово.'
 const emailError = 'Некорректый адрес почты.'
 const nameError = 'Имя должно содержать только латиницу, кириллицу, пробел или дефис.'
 
-export {SHORTS_DUR, WIDTH_PARAMS, searchError, emailError, nameError}
+const EmailRegexp = "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"
+
+export {SHORTS_DUR, WIDTH_PARAMS, searchError, emailError, nameError, EmailRegexp}
