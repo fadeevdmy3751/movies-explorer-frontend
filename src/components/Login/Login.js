@@ -1,24 +1,36 @@
-// import './Login.css';
 import '../CommonForm/CommonForm.css';
-import {useState} from "react";
 import {Link} from "react-router-dom";
 import logo from '../../images/logo.svg';
+import useFormWithValidation from "../../hooks/useFormWithValidation";
+import {useEffect, useRef} from "react";
 
 export default function Login({handleLogin}) {
+    const {values, handleChange, resetForm, errors, isValid} = useFormWithValidation();
+    const emailInput = useRef();
+    const passwordInput = useRef();
+    const submitButton = useRef();
 
-    const [email, setEmail] = useState()
-
-    function onLogin(e) {
+    function handleSubmit(e) {
         e.preventDefault()
-        handleLogin({email})
+        emailInput.current.disabled = true;
+        passwordInput.current.disabled = true;
+        submitButton.current.disabled = true;
+        handleLogin(values)
+        emailInput.current.disabled = false;
+        passwordInput.current.disabled = false;
+        submitButton.current.disabled = false;
     }
+
+    useEffect(() => {
+        resetForm();
+    }, [resetForm]);
 
     return (<main className="commonForm">
         <form
             className="commonForm__form"
             name="login"
-            // noValidate // todo потом убрать
-            onSubmit={onLogin}
+            noValidate
+            onSubmit={handleSubmit}
         >
             <Link to='/' className='commonForm__link'>
                 <img src={logo} alt="Логотип" className="commonForm__logo"/>
@@ -29,30 +41,36 @@ export default function Login({handleLogin}) {
                     <span className="commonForm__label-text">E-mail</span>
                     <input
                         name="email"
-                        className={`commonForm__input commonForm__input_error'}`}
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email || ''}
+                        className={`commonForm__input ${errors.email && 'commonForm__input_error'}`}
+                        onChange={handleChange}
+                        value={values.email || ''}
                         type="email"
+                        ref={emailInput}
                         required
                     />
-                    <span className="commonForm__error">ошибка мыла</span>
+                    <span className="commonForm__error">{errors.email || ''}</span>
                 </label>
                 <label className="commonForm__label">
                     <span className="commonForm__label-text">Пароль</span>
                     <input
                         name="password"
-                        className={'commonForm__input commonForm__input_error'}
-                        defaultValue=""
+                        className={`commonForm__input ${
+                            errors.password && 'commonForm__input_error'
+                        }`}
+                        onChange={handleChange}
+                        value={values.password || ''}
                         type="password"
+                        ref={passwordInput}
                         required
                     />
-                    <span className="commonForm__error">ошибка пароля</span>
+                    <span className="commonForm__error">{errors.password || ''}</span>
                 </label>
             </div>
             <button
                 type="submit"
-                className={`commonForm__button`} //'commonForm__button_disabled'
-                disabled={false}
+                className={`commonForm__button ${!isValid && 'commonForm__button_disabled'}`}
+                ref={submitButton}
+                disabled={!isValid}
             >
                 Войти
             </button>
