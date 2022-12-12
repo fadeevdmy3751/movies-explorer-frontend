@@ -16,3 +16,7 @@ https://api.fadeeploma.nomoredomains.club/api
 ### Пулл-реквест:
 
 https://github.com/fadeevdmy3751/movies-explorer-frontend/pull/2
+
+#### Улучшить:
+поля формы заблокированы во время отправки запросов. 
+Оставил на сладкое.
