@@ -35,12 +35,12 @@ export default function SavedMovies({setMessageBox, savedMoviesList, onDeleteCli
     function handleShorts() {
         if (!shortsOnly) {
             setShortsOnly(true);
-            localStorage.setItem(`${currentUser.email} - shortSaved`, true);
+            localStorage.setItem(`shortSaved`, true);
             setShowedMovies(filterShorts(filteredMovies));
             filterShorts(filteredMovies).length === 0 ? setNotFound(true) : setNotFound(false);
         } else {
             setShortsOnly(false);
-            localStorage.setItem(`${currentUser.email} - shortSaved`, false);
+            localStorage.setItem(`shortSaved`, false);
             filteredMovies.length === 0 ? setNotFound(true) : setNotFound(false);
             setShowedMovies([...filteredMovies]);
         }
@@ -48,7 +48,7 @@ export default function SavedMovies({setMessageBox, savedMoviesList, onDeleteCli
 
     // чекбокс в локальном хранилище
     useEffect(() => {
-        if (localStorage.getItem(`${currentUser.email} - shortSaved`) === 'true') {
+        if (localStorage.getItem(`shortSaved`) === 'true') {
             setShortsOnly(true);
             setShowedMovies(filterShorts(savedMoviesList));
         } else {

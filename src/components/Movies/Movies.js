@@ -39,15 +39,15 @@ export default function Movies({
             shortsOnlyCheckbox ? filterShorts(moviesList) : [...moviesList]
         );
         localStorage.setItem(
-            `${currentUser.email} - movies`,
+            `movies`,
             JSON.stringify(moviesList)
         );
     }
 
     // поиск по запросу
     function handleSearchSubmit(inputValue) {
-        localStorage.setItem(`${currentUser.email} - movieSearch`, inputValue);
-        localStorage.setItem(`${currentUser.email} - shortsOnly`, shortsOnly);
+        localStorage.setItem(`movieSearch`, inputValue);
+        localStorage.setItem(`shortsOnly`, shortsOnly);
         if (!localStorage.getItem('AllMovies')) {   // correct
             setShowLoader(true);
             getAllMovies()
@@ -82,12 +82,12 @@ export default function Movies({
         } else {
             setFilteredMovies([...queriedMovies]);
         }
-        localStorage.setItem(`${currentUser.email} - shortsOnly`, !shortsOnly);
+        localStorage.setItem(`shortsOnly`, !shortsOnly);
     }
 
     // чекбокс в локальном хранилище //ок
     useEffect(() => {
-        if (localStorage.getItem(`${currentUser.email} - shortsOnly`) === 'true') {
+        if (localStorage.getItem(`shortsOnly`) === 'true') {
             setShortsOnly(true);
         } else {
             setShortsOnly(false);
@@ -96,13 +96,13 @@ export default function Movies({
 
     // рендер фильмов из локального хранилища для первого раза //ок
     useEffect(() => {
-        if (localStorage.getItem(`${currentUser.email} - movies`)) {
+        if (localStorage.getItem(`movies`)) {
             const movies = JSON.parse(
-                localStorage.getItem(`${currentUser.email} - movies`)
+                localStorage.getItem(`movies`)
             );
             setQueriedMovies(movies);
             if (
-                localStorage.getItem(`${currentUser.email} - shortsOnly`) === 'true'
+                localStorage.getItem(`shortsOnly`) === 'true'
             ) {
                 setFilteredMovies(filterShorts(movies));
             } else {

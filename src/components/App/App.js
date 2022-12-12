@@ -6,17 +6,17 @@ import Main from "../Main/Main";
 import Header from "../Header/Header";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import mainApi from "../../utils/MainApi";
 import Movies from "../Movies/Movies";
 import Profile from "../Profile/Profile";
 import Page404 from "../Page404/Page404";
 import Footer from "../Footer/Footer";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
 import useEscapePress from "../../hooks/useEscapePress";
-import mainApi from "../../utils/MainApi";
 import Preloader from "../Preloader/Preloader";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import MessageBox from "../MessageBox/MessageBox";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 
 const headerPaths = ['/movies', '/saved-movies', '/profile', '/'];
@@ -65,6 +65,7 @@ export default function App() {
 
     function handleLogin({email, password}) {
         setLoad(false);
+        localStorage.clear();
         mainApi
             .login(email, password)
             .then((data) => {
@@ -84,7 +85,8 @@ export default function App() {
             .finally(() => setLoad(true));
     }
 
-    function handleSignOut() {
+    function handleSignOut()
+    {
         setCurrentUser({});
         setLoggedIn(false);
         localStorage.clear();

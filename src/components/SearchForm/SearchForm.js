@@ -19,8 +19,8 @@ export default function SearchForm({handleSearchSubmit, handleShorts, shortsOnly
     }
 
     useEffect(() => {
-        if (location.pathname === '/movies' && localStorage.getItem(`${currentUser.email} - movieSearch`)) {
-            values.search = localStorage.getItem(`${currentUser.email} - movieSearch`);
+        if (location.pathname === '/movies' && localStorage.getItem(`movieSearch`)) {
+            values.search = localStorage.getItem(`movieSearch`);
         }
         setIsValid(true);
         errors.search = 'empty'
