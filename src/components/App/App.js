@@ -80,7 +80,7 @@ export default function App() {
                 }
             })
             .catch(err => setMessageBoxOpen({
-                isOpen: true, successful: false, text: err,
+                isOpen: true, successful: false, text: 'Неверное имя пользователя или пароль',
             }))
             .finally(() => setLoad(true));
     }
