@@ -18,7 +18,11 @@ class Api {
         if (res.ok) {
             return res.json();
         }
-        // если ошибка, отклоняем промис
+        // если ошибка 401, устанавливаем специальное сообщение, будем разлогинивать
+        if (res.status === 401){
+            return Promise.reject('tokenError');
+        }
+
         return Promise.reject(errorMes);
     }
 

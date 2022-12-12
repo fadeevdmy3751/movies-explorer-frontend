@@ -85,20 +85,28 @@ export default function App() {
             .finally(() => setLoad(true));
     }
 
-    function handleSignOut()
-    {
+    function handleSignOut(emergency = false) {
         setCurrentUser({});
         setLoggedIn(false);
         localStorage.clear();
+        if (emergency) {
+            setMessageBoxOpen({
+                isOpen: true, successful: false, text: 'что-то пошло не так, вы были разлогинены',
+            })
+            return;
+        }
         mainApi.logout().then((data) => {
             setMessageBoxOpen({
                 isOpen: true, successful: true, text: 'Успешно разлогинен!',
             })
             history.push('/')
         })
-            .catch(err => setMessageBoxOpen({
-                isOpen: true, successful: false, text: err,
-            }))
+            .catch(err => {
+                if (err === 'tokenError')
+                    handleSignOut(true)
+                else
+                    setMessageBoxOpen({isOpen: true, successful: false, text: err,})
+            })
     }
 
     function handleProfile({name, email}) {
@@ -111,9 +119,12 @@ export default function App() {
                     isOpen: true, successful: true, text: 'Ваши данные обновлены!',
                 });
             })
-            .catch(err => setMessageBoxOpen({
-                isOpen: true, successful: false, text: err,
-            }))
+            .catch(err => {
+                if (err === 'tokenError')
+                    handleSignOut(true)
+                else
+                    setMessageBoxOpen({isOpen: true, successful: false, text: err,})
+            })
             .finally(() => setLoad(true));
     }
 
@@ -122,9 +133,12 @@ export default function App() {
         mainApi
             .addNewMovie(movie)
             .then(newMovie => setSavedMoviesList([newMovie, ...savedMoviesList]))
-            .catch(err => setMessageBoxOpen({
-                isOpen: true, successful: false, text: err,
-            }));
+            .catch(err => {
+                if (err === 'tokenError')
+                    handleSignOut(true)
+                else
+                    setMessageBoxOpen({isOpen: true, successful: false, text: err,})
+            });
     }
 
     function handleDeleteMovie(movie) {
@@ -136,9 +150,12 @@ export default function App() {
                 const newMoviesList = savedMoviesList.filter(m => m._id !== savedMovie._id);
                 setSavedMoviesList(newMoviesList);
             })
-            .catch(err => setMessageBoxOpen({
-                isOpen: true, successful: false, text: err,
-            }));
+            .catch(err => {
+                if (err === 'tokenError')
+                    handleSignOut(true)
+                else
+                    setMessageBoxOpen({isOpen: true, successful: false, text: err,})
+            });
     }
 
 // проверка токена и авторизация пользователя
