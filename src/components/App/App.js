@@ -89,7 +89,7 @@ export default function App() {
         setCurrentUser({});
         setLoggedIn(false);
         localStorage.clear();
-        if (emergency) {
+        if (emergency === false) {
             setMessageBoxOpen({
                 isOpen: true, successful: false, text: 'что-то пошло не так, вы были разлогинены',
             })
